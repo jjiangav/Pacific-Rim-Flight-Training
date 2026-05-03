@@ -142,7 +142,15 @@ const FlightChecklist: React.FC = () => {
             <p className="text-slate-500 text-xs">Pacific Rim Aviation Academy</p>
           </div>
           {phase !== 'done' && (
-            <span className="text-xs text-slate-400 mt-1 tabular-nums">{itemIndex + 1} / {items.length}</span>
+            <div className="flex items-center gap-3 mt-1">
+              <span className="text-xs text-slate-400 tabular-nums">{itemIndex + 1} / {items.length}</span>
+              <button
+                onClick={() => selectCategory(catIndex)}
+                className="text-xs text-rose-400 hover:text-rose-300 font-semibold transition-colors"
+              >
+                Reset
+              </button>
+            </div>
           )}
         </div>
         <div className="flex gap-2 overflow-x-auto no-scrollbar">

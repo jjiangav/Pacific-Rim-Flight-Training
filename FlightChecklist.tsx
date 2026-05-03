@@ -21,7 +21,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'pfi-4':  { image: 'real',    x: 40, y: 58, w: 5,  h: 15 }, // Trim — center console upper
   'pfi-5':  { image: 'real',    x: 5,  y: 35, w: 42, h: 24 }, // Avionics & Electrics — left avionics stack
   'pfi-6':  { image: 'real',    x: 14, y: 40, w: 5,  h: 12 }, // Master / Battery Side
-  'pfi-7':  { image: 'real',    x: 5,  y: 62, w: 10, h: 12 }, // Flaps — lower-left panel toggle
+  'pfi-7':  { image: 'real',    x: 70, y: 60, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
   'pfi-8':  { image: 'real',    x: 60, y: 10, w: 35, h: 18 }, // Fuel Gauges — top two gauges, right panel
   'pfi-9':  { image: 'diagram', x: 17, y: 55, w: 15, h: 7  }, // All Lights — light switch row on diagram
   // Pre-Start Check  (psc-2/3 cabin → no hotspot)
@@ -44,7 +44,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'sc-13':  { image: 'real',    x: 60, y: 10, w: 35, h: 18 }, // Ammeter — right panel upper area
   // Pre-Taxi Check
   'ptc-1':  { image: 'real',    x: 50, y: 68, w: 12, h: 12 }, // Mixture — red knob
-  'ptc-2':  { image: 'real',    x: 5,  y: 62, w: 10, h: 12 }, // Flaps — lower-left panel toggle
+  'ptc-2':  { image: 'real',    x: 70, y: 60, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
   'ptc-3':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Radio — left avionics
   'ptc-4':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Transponder — left avionics
   'ptc-5':  { image: 'diagram', x: 14, y: 50, w: 15, h: 7  }, // Lights — light switch row
@@ -76,7 +76,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'ptof-5': { image: 'real',    x: 50, y: 68, w: 12, h: 12 }, // Mixture — red knob
   'ptof-6': { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Pressure / Temperature — bottom two gauges
   'ptof-7': { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks
-  'ptof-8': { image: 'real',    x: 5,  y: 62, w: 10, h: 12 }, // Trim & Flaps — lower-left panel toggle
+  'ptof-8': { image: 'real',    x: 70, y: 60, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
   'ptof-9': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments
   'ptof-12':{ image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
 };

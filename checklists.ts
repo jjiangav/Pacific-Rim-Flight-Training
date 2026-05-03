@@ -1,4 +1,27 @@
-export const checklists = {
+export type CockpitZone = 
+  | "walkaround" 
+  | "cabin" 
+  | "pedestal" 
+  | "right-panel" 
+  | "floor" 
+  | "center-panel" 
+  | "left-panel" 
+  | "external" 
+  | "yoke" 
+  | "main-panel";
+
+export interface ChecklistItem {
+  id: string;
+  task: string;
+  action: string;
+  zone: CockpitZone;
+}
+
+export interface ChecklistData {
+  [category: string]: ChecklistItem[];
+}
+
+export const checklists: ChecklistData = {
   "Pre-Engine Start": [
     { id: "pre-1", task: "Preflight Inspection", action: "COMPLETE", zone: "walkaround" },
     { id: "pre-2", task: "Passenger Briefing", action: "COMPLETED", zone: "cabin" },

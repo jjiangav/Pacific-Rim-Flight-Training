@@ -4,7 +4,8 @@ export default {
     "./index.html",
     "./App.tsx",
     "./FlightChecklist.tsx",
-    "./main.tsx"
+    "./main.tsx",
+    "./checklists.ts"
   ],
   theme: {
     extend: {},

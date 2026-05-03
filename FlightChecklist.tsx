@@ -1,18 +1,52 @@
 import React, { useState, useCallback } from 'react';
 import { checklists, CockpitZone } from './checklists';
 
-type ZoneBounds = { x: number; y: number; w: number; h: number };
 type Phase = 'question' | 'correct' | 'incorrect' | 'done';
 
-// Bounding boxes as % of image width/height — calibrated to C172 SP Cockpit.jpg
-const ZONE_BOUNDS: Partial<Record<CockpitZone, ZoneBounds>> = {
-  'main-panel':   { x: 4,  y: 10, w: 58, h: 33 },
-  'left-panel':   { x: 4,  y: 44, w: 42, h: 13 },
-  'center-panel': { x: 44, y: 44, w: 23, h: 13 },
-  'right-panel':  { x: 79, y: 10, w: 17, h: 47 },
-  'pedestal':     { x: 37, y: 58, w: 26, h: 20 },
-  'yoke':         { x: 5,  y: 57, w: 28, h: 26 },
-  'floor':        { x: 33, y: 78, w: 34, h: 12 },
+interface Hotspot {
+  image: 'real' | 'diagram';
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+// Per-item hotspots as % of image dimensions.
+// 'real'    → C-GWTE.jpg  (portrait ~600×800, cockpit photo)
+// 'diagram' → C172 SP Cockpit.jpg  (landscape, used when control is obstructed in photo)
+const HOTSPOTS: Record<string, Hotspot> = {
+  // Pre-Engine Start
+  'pre-4':   { image: 'real',    x: 42, y: 20, w: 15, h: 12 }, // Fuel Selector Valve (top of center pedestal)
+  'pre-5':   { image: 'diagram', x: 80, y: 11, w: 16, h: 39 }, // Circuit Breakers (right panel, obstructed in photo)
+  'pre-6':   { image: 'real',    x: 28, y: 2,  w: 44, h: 17 }, // Brakes (rudder pedal assembly, top of photo)
+  // Engine Start
+  'start-1': { image: 'real',    x: 27, y: 47, w: 12, h: 13 }, // Mixture (red knob, left lower panel)
+  'start-2': { image: 'real',    x: 15, y: 47, w: 12, h: 13 }, // Throttle (left lower panel, left of mixture)
+  'start-3': { image: 'real',    x: 17, y: 37, w: 14, h: 10 }, // Master Switch (left panel switch row)
+  'start-4': { image: 'diagram', x: 18, y: 50, w: 6,  h: 7  }, // Beacon switch (too small to identify in photo)
+  'start-6': { image: 'real',    x: 5,  y: 40, w: 13, h: 16 }, // Ignition / Magnetos (far left rotary)
+  // Before Take-off
+  'to-1':    { image: 'real',    x: 40, y: 34, w: 18, h: 12 }, // Parking Brake (center pedestal)
+  'to-2':    { image: 'real',    x: 5,  y: 55, w: 28, h: 26 }, // Control Yoke (lower left)
+  'to-3':    { image: 'real',    x: 43, y: 37, w: 44, h: 28 }, // Flight Instruments (right panel cluster)
+  'to-4':    { image: 'real',    x: 56, y: 38, w: 18, h: 16 }, // Fuel Quantity gauges (right side of instruments)
+  'to-5':    { image: 'real',    x: 27, y: 47, w: 12, h: 13 }, // Mixture (same as start-1)
+};
+
+const ITEM_LABELS: Record<string, string> = {
+  'pre-4':   'Fuel Selector Valve',
+  'pre-5':   'Circuit Breakers',
+  'pre-6':   'Toe Brakes / Rudder Pedals',
+  'start-1': 'Mixture Control (red knob)',
+  'start-2': 'Throttle',
+  'start-3': 'Master Switch',
+  'start-4': 'Beacon Switch (BCN)',
+  'start-6': 'Ignition / Magnetos',
+  'to-1':    'Parking Brake',
+  'to-2':    'Control Yoke',
+  'to-3':    'Flight Instruments',
+  'to-4':    'Fuel Quantity Gauges',
+  'to-5':    'Mixture Control (red knob)',
 };
 
 const ZONE_LABELS: Record<CockpitZone, string> = {
@@ -28,16 +62,6 @@ const ZONE_LABELS: Record<CockpitZone, string> = {
   'external':     'External (Propeller Area)',
 };
 
-const ZONE_BORDER: Partial<Record<CockpitZone, string>> = {
-  'main-panel':   'border-sky-400',
-  'left-panel':   'border-indigo-400',
-  'center-panel': 'border-emerald-400',
-  'right-panel':  'border-purple-400',
-  'pedestal':     'border-amber-400',
-  'yoke':         'border-cyan-400',
-  'floor':        'border-orange-400',
-};
-
 const EXTERNAL_ZONES = new Set<CockpitZone>(['walkaround', 'cabin', 'external']);
 
 const FlightChecklist: React.FC = () => {
@@ -45,7 +69,7 @@ const FlightChecklist: React.FC = () => {
   const [catIndex, setCatIndex] = useState(0);
   const [itemIndex, setItemIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('question');
-  const [showHints, setShowHints] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const [clickPos, setClickPos] = useState<{ x: number; y: number } | null>(null);
   const [attempts, setAttempts] = useState(0);
 
@@ -53,6 +77,11 @@ const FlightChecklist: React.FC = () => {
   const items = checklists[category];
   const item = items[itemIndex];
   const isExternal = EXTERNAL_ZONES.has(item.zone);
+  const hotspot = HOTSPOTS[item.id];
+  const usingDiagram = hotspot?.image === 'diagram';
+  const imgSrc = usingDiagram
+    ? `${import.meta.env.BASE_URL}C172 SP Cockpit.jpg`
+    : `${import.meta.env.BASE_URL}C-GWTE.jpg`;
 
   const advance = useCallback(() => {
     if (itemIndex < items.length - 1) {
@@ -60,7 +89,7 @@ const FlightChecklist: React.FC = () => {
       setPhase('question');
       setClickPos(null);
       setAttempts(0);
-      setShowHints(false);
+      setShowHint(false);
     } else {
       setPhase('done');
     }
@@ -72,11 +101,11 @@ const FlightChecklist: React.FC = () => {
     setPhase('question');
     setClickPos(null);
     setAttempts(0);
-    setShowHints(false);
+    setShowHint(false);
   };
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (phase !== 'question' || isExternal) return;
+    if (phase !== 'question' || isExternal || !hotspot) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const px = ((e.clientX - rect.left) / rect.width) * 100;
@@ -84,16 +113,10 @@ const FlightChecklist: React.FC = () => {
 
     setClickPos({ x: px, y: py });
 
-    let hit: CockpitZone | null = null;
-    for (const entry of Object.entries(ZONE_BOUNDS) as Array<[CockpitZone, ZoneBounds]>) {
-      const [z, b] = entry;
-      if (px >= b.x && px <= b.x + b.w && py >= b.y && py <= b.y + b.h) {
-        hit = z;
-        break;
-      }
-    }
+    const hit = px >= hotspot.x && px <= hotspot.x + hotspot.w
+             && py >= hotspot.y && py <= hotspot.y + hotspot.h;
 
-    if (hit === item.zone) {
+    if (hit) {
       setPhase('correct');
       setTimeout(advance, 1500);
     } else {
@@ -104,7 +127,7 @@ const FlightChecklist: React.FC = () => {
         setClickPos(null);
       }, 1800);
     }
-  }, [phase, isExternal, item, advance]);
+  }, [phase, isExternal, hotspot, advance]);
 
   const progressPct = Math.round((itemIndex / items.length) * 100);
 
@@ -119,9 +142,7 @@ const FlightChecklist: React.FC = () => {
             <p className="text-slate-500 text-xs">Pacific Rim Aviation Academy</p>
           </div>
           {phase !== 'done' && (
-            <span className="text-xs text-slate-400 mt-1 tabular-nums">
-              {itemIndex + 1} / {items.length}
-            </span>
+            <span className="text-xs text-slate-400 mt-1 tabular-nums">{itemIndex + 1} / {items.length}</span>
           )}
         </div>
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
@@ -172,18 +193,16 @@ const FlightChecklist: React.FC = () => {
         <>
           {/* Instruction card */}
           <div className={`mx-4 mt-4 p-4 rounded-xl border transition-all duration-300 ${
-            phase === 'correct'
-              ? 'border-emerald-500 bg-emerald-950/40'
-              : phase === 'incorrect'
-              ? 'border-rose-500 bg-rose-950/40'
-              : 'border-slate-700 bg-slate-800'
+            phase === 'correct'   ? 'border-emerald-500 bg-emerald-950/40' :
+            phase === 'incorrect' ? 'border-rose-500 bg-rose-950/40' :
+                                    'border-slate-700 bg-slate-800'
           }`}>
             {phase === 'correct' ? (
               <div className="flex items-center gap-3">
                 <span className="text-emerald-400 text-xl font-bold">✓</span>
                 <div>
                   <p className="text-emerald-400 font-bold text-sm">Correct!</p>
-                  <p className="text-slate-300 text-xs">{ZONE_LABELS[item.zone]}</p>
+                  <p className="text-slate-300 text-xs">{ITEM_LABELS[item.id] ?? ZONE_LABELS[item.zone]}</p>
                 </div>
               </div>
             ) : phase === 'incorrect' ? (
@@ -192,7 +211,9 @@ const FlightChecklist: React.FC = () => {
                 <div>
                   <p className="text-rose-400 font-bold text-sm">Not quite — try again</p>
                   <p className="text-slate-400 text-xs">
-                    {attempts >= 2 ? `Hint: find the ${ZONE_LABELS[item.zone]}` : 'Click the correct location on the cockpit diagram'}
+                    {attempts >= 2
+                      ? `Hint: find the ${ITEM_LABELS[item.id] ?? ZONE_LABELS[item.zone]}`
+                      : 'Click the correct location on the cockpit image'}
                   </p>
                 </div>
               </div>
@@ -226,50 +247,48 @@ const FlightChecklist: React.FC = () => {
               </div>
             ) : (
               <>
+                {usingDiagram && (
+                  <p className="text-amber-400/70 text-[11px] mb-1.5 text-center tracking-wide">
+                    Control obstructed in aircraft photo — showing diagram
+                  </p>
+                )}
+
                 <div
                   className="relative select-none cursor-crosshair rounded-xl overflow-hidden border border-slate-700"
                   onClick={handleClick}
                 >
                   <img
-                    src={`${import.meta.env.BASE_URL}C172 SP Cockpit.jpg`}
-                    alt="C172 Cockpit Layout"
+                    key={imgSrc}
+                    src={imgSrc}
+                    alt={usingDiagram ? 'C172 Cockpit Diagram' : 'C-GWTE Cockpit'}
                     className="w-full block"
                     draggable={false}
                   />
 
-                  {/* Zone hotspot overlays */}
-                  {(Object.entries(ZONE_BOUNDS) as Array<[CockpitZone, ZoneBounds]>).map(([z, b]) => {
-                    const isTarget = z === item.zone;
-                    const borderClass = ZONE_BORDER[z] ?? 'border-slate-400';
-                    return (
-                      <div
-                        key={z}
-                        className={`absolute pointer-events-none rounded transition-all duration-200 border-2 ${
-                          isTarget && phase === 'correct'
-                            ? 'border-emerald-400 bg-emerald-400/20'
-                            : isTarget && showHints
-                            ? `${borderClass} bg-white/5 animate-pulse`
-                            : showHints
-                            ? 'border-white/20 bg-transparent'
-                            : 'border-transparent bg-transparent'
-                        }`}
-                        style={{
-                          left: `${b.x}%`,
-                          top: `${b.y}%`,
-                          width: `${b.w}%`,
-                          height: `${b.h}%`,
-                        }}
-                      >
-                        {showHints && isTarget && (
-                          <span className="absolute top-1 left-1 text-[9px] font-bold text-white bg-slate-900/80 px-1 py-0.5 rounded leading-none">
-                            {ZONE_LABELS[z]}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
+                  {/* Hotspot overlay — hint or correct flash */}
+                  {hotspot && (showHint || phase === 'correct') && (
+                    <div
+                      className={`absolute pointer-events-none rounded border-2 transition-all duration-300 ${
+                        phase === 'correct'
+                          ? 'border-emerald-400 bg-emerald-400/20'
+                          : 'border-sky-400 bg-sky-400/10 animate-pulse'
+                      }`}
+                      style={{
+                        left:   `${hotspot.x}%`,
+                        top:    `${hotspot.y}%`,
+                        width:  `${hotspot.w}%`,
+                        height: `${hotspot.h}%`,
+                      }}
+                    >
+                      {showHint && phase !== 'correct' && (
+                        <span className="absolute top-1 left-1 text-[9px] font-bold text-white bg-slate-900/80 px-1 py-0.5 rounded leading-none whitespace-nowrap">
+                          {item.task}
+                        </span>
+                      )}
+                    </div>
+                  )}
 
-                  {/* Incorrect click ripple */}
+                  {/* Wrong-click ripple */}
                   {clickPos && phase === 'incorrect' && (
                     <div
                       className="absolute w-8 h-8 rounded-full border-2 border-rose-400 bg-rose-400/20 pointer-events-none -translate-x-1/2 -translate-y-1/2 animate-ping"
@@ -279,14 +298,14 @@ const FlightChecklist: React.FC = () => {
                 </div>
 
                 <button
-                  onClick={() => setShowHints(h => !h)}
+                  onClick={() => setShowHint(h => !h)}
                   className={`mt-2 w-full py-2 rounded-lg text-xs font-medium border transition-colors ${
-                    showHints
+                    showHint
                       ? 'border-sky-500/60 bg-sky-950/40 text-sky-400'
                       : 'border-slate-700 bg-slate-800/50 text-slate-500 hover:text-slate-300'
                   }`}
                 >
-                  {showHints ? 'Hide Zone Hints' : 'Show Zone Hints'}
+                  {showHint ? 'Hide Hint' : 'Show Hint'}
                 </button>
               </>
             )}

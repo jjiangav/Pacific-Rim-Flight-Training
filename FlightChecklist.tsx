@@ -46,14 +46,14 @@ const HOTSPOTS: Record<string, Hotspot> = {
   // Pre-Taxi Check
   'ptc-1':  { image: 'real',    x: 50, y: 38, w: 12, h: 12 }, // Mixture — red knob
   'ptc-2':  { image: 'real',    x: 55, y: 40, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
-  'ptc-3':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Radio — left avionics
-  'ptc-4':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Transponder — left avionics
+  'ptc-3':  { image: 'real',    x: 55,  y: 17, w: 22, h: 14 }, // Radio — left avionics
+  'ptc-4':  { image: 'real',    x: 55, y: 17, w: 22, h: 14 }, // Transponder — left avionics
   'ptc-5':  { image: 'diagram', x: 14, y: 50, w: 15, h: 7  }, // Lights — light switch row
   'ptc-6':  { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Dead Mag Check — magnetos
   'ptc-7':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — fuel selector (right tank)
-  'ptc-8':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // ATIS — radio/avionics
+  'ptc-8':  { image: 'real',    x: 55, y: 17, w: 22, h: 14 }, // ATIS — radio/avionics
   'ptc-9':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments
-  'ptc-10': { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Taxi Clearance / Transponder
+  'ptc-10': { image: 'real',    x: 55, y: 17, w: 22, h: 14 }, // Taxi Clearance / Transponder
   'ptc-11': { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
   'ptc-12': { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes
   'ptc-13': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments during taxi

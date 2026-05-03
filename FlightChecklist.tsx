@@ -32,20 +32,20 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'psc-7':  { image: 'real',    x: 40, y: 80, w: 16, h: 23 }, // Fuel — fuel selector (left tank)
   // Start Check  (sc-8 external → no hotspot, sc-4 prime → diagram)
   'sc-1':   { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat — knob left of throttle
-  'sc-2':   { image: 'real',    x: 36, y: 48, w: 12, h: 12 }, // Throttle — black knob, lower-center
+  'sc-2':   { image: 'real',    x: 36, y: 38, w: 12, h: 12 }, // Throttle — black knob, lower-center
   'sc-3':   { image: 'real',    x: 50, y: 38, w: 12, h: 12 }, // Mixture — red knob, lower-center
   'sc-4':   { image: 'real',    x: 7,  y: 46, w: 5,  h: 10 }, // Prime — diagram
   'sc-5':   { image: 'real',    x: 10, y: 62, w: 38, h: 16 }, // Brakes — rudder pedals
   'sc-6':   { image: 'real',    x: 6,  y: 40, w: 10, h: 12 }, // Master / Battery Side
-  'sc-7':   { image: 'real',    x: 18, y: 50, w: 5,  h: 7  }, // Beacon Light — BCN switch on diagram
+  'sc-7':   { image: 'real',    x: 30, y: 50, w: 5,  h: 7  }, // Beacon Light — BCN switch on diagram
   'sc-9':   { image: 'real',    x: 12, y: 40, w: 13, h: 16 }, // Magnetos — far-left rotary
-  'sc-10':  { image: 'real',    x: 36, y: 48, w: 12, h: 12 }, // Throttle 1000 RPM
-  'sc-11':  { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Pressure — bottom two gauges, right panel
+  'sc-10':  { image: 'real',    x: 36, y: 38, w: 12, h: 12 }, // Throttle 1000 RPM
+  'sc-11':  { image: 'real',    x: 60, y: 18, w: 35, h: 18 }, // Oil Pressure — bottom two gauges, right panel
   'sc-12':  { image: 'real',    x: 14, y: 40, w: 5,  h: 10 }, // Master / Alternator Side
   'sc-13':  { image: 'real',    x: 60, y: 10, w: 35, h: 18 }, // Ammeter — right panel upper area
   // Pre-Taxi Check
-  'ptc-1':  { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture — red knob
-  'ptc-2':  { image: 'real',    x: 70, y: 60, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
+  'ptc-1':  { image: 'real',    x: 50, y: 38, w: 12, h: 12 }, // Mixture — red knob
+  'ptc-2':  { image: 'real',    x: 55, y: 40, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
   'ptc-3':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Radio — left avionics
   'ptc-4':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Transponder — left avionics
   'ptc-5':  { image: 'diagram', x: 14, y: 50, w: 15, h: 7  }, // Lights — light switch row
@@ -82,7 +82,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'ptof-5': { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture — red knob
   'ptof-6': { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Pressure / Temperature — bottom two gauges
   'ptof-7': { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks
-  'ptof-8': { image: 'real',    x: 70, y: 60, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
+  'ptof-8': { image: 'real',    x: 55, y: 40, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
   'ptof-9': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments
   'ptof-12':{ image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
 };

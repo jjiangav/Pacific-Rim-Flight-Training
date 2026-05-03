@@ -12,25 +12,25 @@ interface Hotspot {
 }
 
 // Per-item hotspots as % of image dimensions.
-// 'real'    → C-GWTE.jpg  (portrait ~600×800, cockpit photo)
-// 'diagram' → C172 SP Cockpit.jpg  (landscape, used when control is obstructed in photo)
+// 'real'    → C-GWTE.jpg  (portrait, cockpit photo taken from rear seat looking forward)
+// 'diagram' → C172 SP Cockpit.jpg  (landscape diagram, used when control is obstructed in photo)
 const HOTSPOTS: Record<string, Hotspot> = {
   // Pre-Engine Start
-  'pre-4':   { image: 'real',    x: 42, y: 20, w: 15, h: 12 }, // Fuel Selector Valve (top of center pedestal)
-  'pre-5':   { image: 'diagram', x: 80, y: 11, w: 16, h: 39 }, // Circuit Breakers (right panel, obstructed in photo)
-  'pre-6':   { image: 'real',    x: 28, y: 2,  w: 44, h: 17 }, // Brakes (rudder pedal assembly, top of photo)
+  'pre-4':   { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel Selector Valve (lower center console, floor area)
+  'pre-5':   { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers (right panel — obstructed in photo)
+  'pre-6':   { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes — rudder pedal / toe brake assembly at top of photo
   // Engine Start
-  'start-1': { image: 'real',    x: 27, y: 47, w: 12, h: 13 }, // Mixture (red knob, left lower panel)
-  'start-2': { image: 'real',    x: 15, y: 47, w: 12, h: 13 }, // Throttle (left lower panel, left of mixture)
-  'start-3': { image: 'real',    x: 17, y: 37, w: 14, h: 10 }, // Master Switch (left panel switch row)
-  'start-4': { image: 'diagram', x: 18, y: 50, w: 6,  h: 7  }, // Beacon switch (too small to identify in photo)
-  'start-6': { image: 'real',    x: 5,  y: 40, w: 13, h: 16 }, // Ignition / Magnetos (far left rotary)
+  'start-1': { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture — prominent red knob, upper-left panel
+  'start-2': { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle — left of mixture, upper-left panel
+  'start-3': { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master Switch — left panel switch row
+  'start-4': { image: 'diagram', x: 18, y: 50, w: 5,  h: 7  }, // Beacon (BCN) — too small to identify in photo
+  'start-6': { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Ignition / Magnetos — far-left rotary, lower panel
   // Before Take-off
-  'to-1':    { image: 'real',    x: 40, y: 34, w: 18, h: 12 }, // Parking Brake (center pedestal)
-  'to-2':    { image: 'real',    x: 5,  y: 55, w: 28, h: 26 }, // Control Yoke (lower left)
-  'to-3':    { image: 'real',    x: 43, y: 37, w: 44, h: 28 }, // Flight Instruments (right panel cluster)
-  'to-4':    { image: 'real',    x: 56, y: 38, w: 18, h: 16 }, // Fuel Quantity gauges (right side of instruments)
-  'to-5':    { image: 'real',    x: 27, y: 47, w: 12, h: 13 }, // Mixture (same as start-1)
+  'to-1':    { image: 'real',    x: 40, y: 38, w: 16, h: 13 }, // Parking Brake — center console
+  'to-2':    { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Control Yoke — lower left
+  'to-3':    { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Flight Instruments — right instrument cluster
+  'to-4':    { image: 'real',    x: 57, y: 46, w: 18, h: 16 }, // Fuel Quantity — left portion of instrument cluster
+  'to-5':    { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture (same as start-1)
 };
 
 const ITEM_LABELS: Record<string, string> = {

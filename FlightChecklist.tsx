@@ -49,8 +49,8 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'ptc-3':  { image: 'real',    x: 55,  y: 17, w: 22, h: 14 }, // Radio — left avionics
   'ptc-4':  { image: 'real',    x: 55, y: 17, w: 22, h: 14 }, // Transponder — left avionics
   'ptc-5':  { image: 'diagram', x: 14, y: 50, w: 15, h: 7  }, // Lights — light switch row
-  'ptc-6':  { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Dead Mag Check — magnetos
-  'ptc-7':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — fuel selector (right tank)
+  'ptc-6':  { image: 'real',    x: 12,  y: 40, w: 13, h: 16 }, // Dead Mag Check — magnetos
+  'ptc-7':  { image: 'real',    x: 40, y: 80, w: 16, h: 23 }, // Fuel — fuel selector (right tank)
   'ptc-8':  { image: 'real',    x: 55, y: 17, w: 22, h: 14 }, // ATIS — radio/avionics
   'ptc-9':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments
   'ptc-10': { image: 'real',    x: 55, y: 17, w: 22, h: 14 }, // Taxi Clearance / Transponder
@@ -59,7 +59,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'ptc-13': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments during taxi
   // Run-Up Check  (ruc-1/2/7 external → no hotspot)
   'ruc-3':  { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes
-  'ruc-4':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks
+  'ruc-4':  { image: 'real',    x: 40, y: 80, w: 16, h: 23 }, // Fuel — both tanks
   'ruc-5':  { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture — red knob
   'ruc-6':  { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Pressure / Temperature — bottom two gauges
   'ruc-8':  { image: 'real',    x: 36, y: 48, w: 12, h: 12 }, // Throttle 1700 RPM
@@ -81,7 +81,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'ptof-4': { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat COLD
   'ptof-5': { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture — red knob
   'ptof-6': { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Pressure / Temperature — bottom two gauges
-  'ptof-7': { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks
+  'ptof-7': { image: 'real',    x: 40, y: 80, w: 16, h: 23 }, // Fuel — both tanks
   'ptof-8': { image: 'real',    x: 55, y: 40, w: 12, h: 10 }, // Flaps — right subpanel, above ALT STATIC AIR knobs
   'ptof-9': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments
   'ptof-12':{ image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke

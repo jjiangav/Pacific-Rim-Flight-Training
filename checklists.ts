@@ -43,6 +43,6 @@ export const checklists: ChecklistData = {
     { id: "to-2", task: "Flight Controls", action: "FREE & CORRECT", zone: "yoke" },
     { id: "to-3", task: "Flight Instruments", action: "CHECK & SET", zone: "main-panel" },
     { id: "to-4", task: "Fuel Quantity", action: "CHECK", zone: "main-panel" },
-    { id: "to-5", zone: "center-panel", task: "Mixture", action: "RICH" },
+    { id: "to-5", task: "Mixture", action: "RICH", zone: "center-panel" },
   ]
 };

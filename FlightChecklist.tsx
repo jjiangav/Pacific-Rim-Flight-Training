@@ -16,7 +16,7 @@ const zoneColors: Record<CockpitZone, string> = {
 
 const FlightChecklist: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<string>(Object.keys(checklists)[0]);
-  const [selectedAircraft, setSelectedAircraft] = useState<string>('C-GTWE');
+  const [selectedAircraft, setSelectedAircraft] = useState<string>('C-GWTE');
   const [showPoster, setShowPoster] = useState<boolean>(false);
   const [completedItems, setCompletedItems] = useState<string[]>(() => {
     try {
@@ -81,7 +81,7 @@ const FlightChecklist: React.FC = () => {
             onChange={(e) => setSelectedAircraft(e.target.value)}
             className="bg-slate-800 text-sky-400 text-xs font-bold p-1 rounded border border-slate-700 outline-none"
           >
-            <option value="C-GTWE">C-GTWE</option>
+            <option value="C-GWTE">C-GWTE</option>
           </select>
           <button 
             onClick={() => setShowPoster(!showPoster)}

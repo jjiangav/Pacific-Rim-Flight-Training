@@ -17,31 +17,31 @@ interface Hotspot {
 // Items with no entry here show a Mark Complete button instead of click-to-identify.
 const HOTSPOTS: Record<string, Hotspot> = {
   // Pre-Flight Inspection  (pfi-1/2 cabin, pfi-10–14 walkaround → no hotspot needed)
-  'pfi-3':  { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Control Lock — yoke
-  'pfi-4':  { image: 'real',    x: 42, y: 28, w: 14, h: 12 }, // Trim — center console upper
-  'pfi-5':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Avionics & Electrics — left avionics stack
+  'pfi-3':  { image: 'real',    x: 2,  y: 28, w: 28, h: 24 }, // Control Lock — yoke
+  'pfi-4':  { image: 'real',    x: 42, y: 58, w: 14, h: 12 }, // Trim — center console upper
+  'pfi-5':  { image: 'real',    x: 5,  y: 27, w: 42, h: 34 }, // Avionics & Electrics — left avionics stack
   'pfi-6':  { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master / Battery Side
-  'pfi-7':  { image: 'diagram', x: 17, y: 44, w: 5,  h: 9  }, // Flaps — switch on diagram
-  'pfi-8':  { image: 'real',    x: 57, y: 46, w: 18, h: 16 }, // Fuel Gauges — right instrument cluster
-  'pfi-9':  { image: 'diagram', x: 14, y: 50, w: 15, h: 7  }, // All Lights — light switch row on diagram
+  'pfi-7':  { image: 'diagram', x: 50, y: 54, w: 5,  h: 9  }, // Flaps — switch on diagram
+  'pfi-8':  { image: 'real',    x: 30, y: 16, w: 18, h: 16 }, // Fuel Gauges — right instrument cluster
+  'pfi-9':  { image: 'diagram', x: 14, y: 55, w: 15, h: 7  }, // All Lights — light switch row on diagram
   // Pre-Start Check  (psc-2/3 cabin → no hotspot)
-  'psc-1':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Hobbs Time — right instrument cluster
-  'psc-4':  { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers — right panel on diagram
-  'psc-5':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Avionics & Electrics — left avionics stack
-  'psc-6':  { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
-  'psc-7':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — fuel selector (left tank)
+  'psc-1':  { image: 'real',    x: 37, y: 45, w: 15, h: 10 }, // Hobbs Time — right instrument cluster
+  'psc-4':  { image: 'real',    x: 10, y: 45, w: 20, h: 5 }, // Circuit Breakers — right panel on diagram
+  'psc-5':  { image: 'real',    x: 5,  y: 17, w: 22, h: 34 }, // Avionics & Electrics — left avionics stack
+  'psc-6':  { image: 'real',    x: 2,  y: 18, w: 48, h: 24 }, // Controls — yoke
+  'psc-7':  { image: 'real',    x: 40, y: 80, w: 16, h: 13 }, // Fuel — fuel selector (left tank)
   // Start Check  (sc-8 external → no hotspot, sc-1 carb heat → no hotspot, sc-4 prime → diagram)
-  'sc-2':   { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle / Friction Lock
-  'sc-3':   { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture
-  'sc-4':   { image: 'diagram', x: 70, y: 46, w: 5,  h: 10 }, // Prime — diagram
-  'sc-5':   { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes — rudder pedals
-  'sc-6':   { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master / Battery Side
-  'sc-7':   { image: 'diagram', x: 18, y: 50, w: 5,  h: 7  }, // Beacon Light — BCN switch on diagram
-  'sc-9':   { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Magnetos — far-left rotary
-  'sc-10':  { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle 1000 RPM
-  'sc-11':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Oil Pressure — right cluster
-  'sc-12':  { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master / Alternator Side
-  'sc-13':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Ammeter — right cluster
+  'sc-2':   { image: 'real',    x: 40, y: 35, w: 10, h: 10 }, // Throttle / Friction Lock
+  'sc-3':   { image: 'real',    x: 50, y: 38, w: 11, h: 11 }, // Mixture
+  'sc-4':   { image: 'real',    x: 7,  y: 56, w: 5,  h: 10 }, // Prime — diagram
+  'sc-5':   { image: 'real',    x: 10, y: 62, w: 38, h: 16 }, // Brakes — rudder pedals
+  'sc-6':   { image: 'real',    x: 6,  y: 40, w: 10, h: 12 }, // Master / Battery Side
+  'sc-7':   { image: 'real',    x: 18, y: 50, w: 5,  h: 7  }, // Beacon Light — BCN switch on diagram
+  'sc-9':   { image: 'real',    x: 12, y: 40, w: 13, h: 16 }, // Magnetos — far-left rotary
+  'sc-10':  { image: 'real',    x: 63, y: 48, w: 5,  h: 5  }, // Throttle 1000 RPM
+  'sc-11':  { image: 'real',    x: 57, y: 16, w: 20, h: 13 }, // Oil Pressure — right cluster
+  'sc-12':  { image: 'real',    x: 14, y: 40, w: 5,  h: 10 }, // Master / Alternator Side
+  'sc-13':  { image: 'real',    x: 77, y: 16, w: 10, h: 13 }, // Ammeter — right cluster
   // Pre-Taxi Check
   'ptc-1':  { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture
   'ptc-2':  { image: 'diagram', x: 17, y: 44, w: 5,  h: 9  }, // Flaps

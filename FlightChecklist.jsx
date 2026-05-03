@@ -9,6 +9,7 @@ const FlightChecklist = () => {
     const saved = localStorage.getItem('checklistProgress');
     return saved ? JSON.parse(saved) : [];
   });
+  const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
     localStorage.setItem('checklistProgress', JSON.stringify(completedItems));
@@ -26,8 +27,12 @@ const FlightChecklist = () => {
     }
   };
 
+  const handleImageError = (id) => {
+    setImageErrors(prev => ({ ...prev, [id]: true }));
+  };
+
   const allItems = Object.values(checklists).flat();
-  const progressPercent = Math.round((completedItems.length / allItems.length) * 100);
+  const progressPercent = allItems.length > 0 ? Math.round((completedItems.length / allItems.length) * 100) : 0;
 
   return (
     <div className="max-w-2xl mx-auto p-4 md:p-8 bg-slate-900 min-h-screen text-slate-100 font-sans">
@@ -51,7 +56,7 @@ const FlightChecklist = () => {
             {showPoster ? 'VIEW COCKPIT' : 'VIEW POSTER'}
           </button>
           <button onClick={resetAll} className="text-xs font-semibold text-rose-400 hover:text-rose-300 transition-colors">
-            RESET ALL
+            CLEAR ALL
           </button>
         </div>
       </header>
@@ -107,19 +112,19 @@ const FlightChecklist = () => {
           {!completedItems.includes(item.id) && (
             <div className="px-4 pb-2">
               <div className="relative overflow-hidden rounded-lg border border-slate-700 bg-slate-950 aspect-video group flex items-center justify-center">
-                <img 
-                  src={showPoster ? encodeURI(`/C172N Poster.Jpg`) : `/${selectedAircraft}.jpg`}
-                  alt={`${selectedAircraft} ${showPoster ? 'Poster' : 'Cockpit'}`}
-                  className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
-                  }}
-                />
-                <div className="hidden text-slate-500 text-xs text-center p-4">
-                  <p className="font-bold">Image missing: {selectedAircraft}.jpg</p>
-                  <p className="mt-1 opacity-70">Move images to the <code className="bg-slate-800 px-1 rounded">public</code> folder.</p>
-                </div>
+                {!imageErrors[item.id] ? (
+                  <img 
+                    src={showPoster ? encodeURI(`${import.meta.env.BASE_URL}C172N Poster.Jpg`) : `${import.meta.env.BASE_URL}${selectedAircraft}.jpg`}
+                    alt={`${selectedAircraft} ${showPoster ? 'Poster' : 'Cockpit'}`}
+                    className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                    onError={() => handleImageError(item.id)}
+                  />
+                ) : (
+                  <div className="text-slate-500 text-xs text-center p-4">
+                    <p className="font-bold">Image reference unavailable</p>
+                    <p className="mt-1 opacity-70 italic">Check public folder for {selectedAircraft}.jpg</p>
+                  </div>
+                )}
                 <div className="absolute bottom-2 left-2 bg-slate-900/80 px-2 py-1 rounded text-[10px] font-bold text-sky-400">
                   ZONE: {item.zone}
                 </div>

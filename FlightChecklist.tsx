@@ -25,7 +25,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'pfi-8':  { image: 'real',    x: 60, y: 10, w: 35, h: 18 }, // Fuel Gauges — top two gauges, right panel
   'pfi-9':  { image: 'diagram', x: 17, y: 55, w: 15, h: 7  }, // All Lights — light switch row on diagram
   // Pre-Start Check  (psc-2/3 cabin → no hotspot)
-  'psc-1':  { image: 'real',    x: 40, y: 65, w: 15, h: 10 }, // Hobbs Time — right instrument cluster
+  'psc-1':  { image: 'real',    x: 38, y: 72, w: 20, h: 10 }, // Hobbs Time — hour meter, lower-center panel
   'psc-4':  { image: 'real',    x: 20, y: 42, w: 20, h: 5 }, // Circuit Breakers — right panel on diagram
   'psc-5':  { image: 'real',    x: 5,  y: 17, w: 22, h: 34 }, // Avionics & Electrics — left avionics stack
   'psc-6':  { image: 'real',    x: 2,  y: 15, w: 48, h: 34 }, // Controls — yoke

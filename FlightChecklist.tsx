@@ -25,14 +25,15 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'pfi-8':  { image: 'real',    x: 60, y: 10, w: 35, h: 18 }, // Fuel Gauges — top two gauges, right panel
   'pfi-9':  { image: 'diagram', x: 17, y: 55, w: 15, h: 7  }, // All Lights — light switch row on diagram
   // Pre-Start Check  (psc-2/3 cabin → no hotspot)
-  'psc-1':  { image: 'real',    x: 38, y: 52, w: 20, h: 10 }, // Hobbs Time — hour meter, lower-center panel
+  'psc-1':  { image: 'real',    x: 38, y: 60, w: 20, h: 10 }, // Hobbs Time — hour meter, lower-center panel
   'psc-4':  { image: 'real',    x: 20, y: 42, w: 20, h: 10 }, // Circuit Breakers — right panel on diagram
   'psc-5':  { image: 'real',    x: 5,  y: 17, w: 22, h: 34 }, // Avionics & Electrics — left avionics stack
   'psc-6':  { image: 'real',    x: 2,  y: 15, w: 48, h: 34 }, // Controls — yoke
   'psc-7':  { image: 'real',    x: 40, y: 80, w: 16, h: 23 }, // Fuel — fuel selector (left tank)
-  // Start Check  (sc-8 external → no hotspot, sc-1 carb heat → no hotspot, sc-4 prime → diagram)
+  // Start Check  (sc-8 external → no hotspot, sc-4 prime → diagram)
+  'sc-1':   { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat — knob left of throttle
   'sc-2':   { image: 'real',    x: 36, y: 48, w: 12, h: 12 }, // Throttle — black knob, lower-center
-  'sc-3':   { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture — red knob, lower-center
+  'sc-3':   { image: 'real',    x: 50, y: 38, w: 12, h: 12 }, // Mixture — red knob, lower-center
   'sc-4':   { image: 'real',    x: 7,  y: 46, w: 5,  h: 10 }, // Prime — diagram
   'sc-5':   { image: 'real',    x: 10, y: 62, w: 38, h: 16 }, // Brakes — rudder pedals
   'sc-6':   { image: 'real',    x: 6,  y: 40, w: 10, h: 12 }, // Master / Battery Side
@@ -56,7 +57,7 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'ptc-11': { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
   'ptc-12': { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes
   'ptc-13': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments during taxi
-  // Run-Up Check  (ruc-1/2/7 external, ruc-12/14/16/19 carb heat → no hotspot)
+  // Run-Up Check  (ruc-1/2/7 external → no hotspot)
   'ruc-3':  { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes
   'ruc-4':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks
   'ruc-5':  { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture — red knob
@@ -65,14 +66,19 @@ const HOTSPOTS: Record<string, Hotspot> = {
   'ruc-9':  { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Pressure green — bottom two gauges
   'ruc-10': { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Temperature — bottom two gauges
   'ruc-11': { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Suction gauge — bottom two gauges
+  'ruc-12': { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat HOT
   'ruc-13': { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture confirm function
+  'ruc-14': { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat COLD
   'ruc-15': { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Magnetos
+  'ruc-16': { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat HOT
   'ruc-17': { image: 'real',    x: 36, y: 48, w: 12, h: 12 }, // Throttle idle check
   'ruc-18': { image: 'real',    x: 36, y: 48, w: 12, h: 12 }, // Throttle 1000 RPM
-  // Pre-Takeoff Check  (ptof-10/11 cabin, ptof-13 external → no hotspot, ptof-4 carb heat → no hotspot)
+  'ruc-19': { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat COLD
+  // Pre-Takeoff Check  (ptof-10/11 cabin, ptof-13 external → no hotspot)
   'ptof-1': { image: 'diagram', x: 70, y: 46, w: 5,  h: 10 }, // Primer
   'ptof-2': { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Masters / Magnetos
   'ptof-3': { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers
+  'ptof-4': { image: 'real',    x: 24, y: 48, w: 10, h: 12 }, // Carb Heat COLD
   'ptof-5': { image: 'real',    x: 50, y: 48, w: 12, h: 12 }, // Mixture — red knob
   'ptof-6': { image: 'real',    x: 60, y: 28, w: 35, h: 18 }, // Oil Pressure / Temperature — bottom two gauges
   'ptof-7': { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks

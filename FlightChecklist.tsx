@@ -14,12 +14,13 @@ interface Hotspot {
 // Per-item hotspots as % of image dimensions.
 // 'real'    → C-GWTE.jpg  (portrait, cockpit photo taken from rear seat looking forward)
 // 'diagram' → C172 SP Cockpit.jpg  (landscape diagram, used when control is obstructed in photo)
+// Items with no entry here are treated as external (cabin/walkaround) — show Mark Complete button.
 const HOTSPOTS: Record<string, Hotspot> = {
-  // Pre-Engine Start
-  'pre-4':   { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel Selector Valve (lower center console, floor area)
-  'pre-5':   { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers (right panel — obstructed in photo)
-  'pre-6':   { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes — rudder pedal / toe brake assembly at top of photo
-  // Engine Start
+  // Pre-Start Check  (pre-1 fire extinguisher & pre-3 seats → cabin, no hotspot needed)
+  'pre-2':   { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel Selector Valve — lower center console
+  'pre-4':   { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers — right panel (obstructed in photo)
+  'pre-5':   { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes — rudder pedal / toe brake assembly
+  // Start Check  (start-5 propeller area → external, no hotspot needed)
   'start-1': { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture — prominent red knob, upper-left panel
   'start-2': { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle — left of mixture, upper-left panel
   'start-3': { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master Switch — left panel switch row

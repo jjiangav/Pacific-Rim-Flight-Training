@@ -6,8 +6,13 @@ const FlightChecklist = () => {
   const [selectedAircraft, setSelectedAircraft] = useState('C-GTWE');
   const [showPoster, setShowPoster] = useState(false);
   const [completedItems, setCompletedItems] = useState(() => {
-    const saved = localStorage.getItem('checklistProgress');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('checklistProgress');
+      const parsed = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
   });
   const [imageErrors, setImageErrors] = useState({});
 

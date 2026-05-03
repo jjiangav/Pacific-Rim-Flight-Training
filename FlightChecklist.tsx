@@ -102,8 +102,16 @@ const ZONE_LABELS: Record<CockpitZone, string> = {
 
 const EXTERNAL_ZONES = new Set<CockpitZone>(['walkaround', 'cabin', 'external']);
 
+const AIRCRAFT = [
+  { id: 'C-FBZQ', type: 'Cessna 172' },
+  { id: 'C-GREI', type: 'Cessna 172' },
+  { id: 'C-GUZD', type: 'Cessna 172' },
+  { id: 'C-GWTE', type: 'Cessna 172' },
+];
+
 const FlightChecklist: React.FC = () => {
   const categories = Object.keys(checklists);
+  const [selectedAircraft, setSelectedAircraft] = useState<string | null>(null);
   const [catIndex, setCatIndex] = useState(0);
   const [itemIndex, setItemIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('question');
@@ -120,7 +128,7 @@ const FlightChecklist: React.FC = () => {
   const usingDiagram = hotspot?.image === 'diagram';
   const imgSrc = usingDiagram
     ? `${import.meta.env.BASE_URL}C172 SP Cockpit.jpg`
-    : `${import.meta.env.BASE_URL}C-GWTE.jpg`;
+    : `${import.meta.env.BASE_URL}${selectedAircraft}.jpg`;
 
   const advance = useCallback(() => {
     if (itemIndex < items.length - 1) {
@@ -170,6 +178,41 @@ const FlightChecklist: React.FC = () => {
 
   const progressPct = Math.round((itemIndex / items.length) * 100);
 
+  if (!selectedAircraft) {
+    return (
+      <div className="bg-slate-900 min-h-screen text-slate-100 flex flex-col max-w-2xl mx-auto">
+        <div className="px-6 pt-10 pb-6 text-center">
+          <h1 className="text-2xl font-bold text-sky-400 tracking-tight">C172 Cockpit Trainer</h1>
+          <p className="text-slate-500 text-xs mt-1">Pacific Rim Aviation Academy</p>
+          <p className="text-slate-300 text-base font-medium mt-8 mb-5">Which aircraft are you flying today?</p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 px-4 pb-10">
+          {AIRCRAFT.map(ac => (
+            <button
+              key={ac.id}
+              onClick={() => setSelectedAircraft(ac.id)}
+              className="group rounded-2xl overflow-hidden border border-slate-700 hover:border-sky-500 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] text-left shadow-lg shadow-black/30 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            >
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src={`${import.meta.env.BASE_URL}${ac.id}.jpg`}
+                  alt={ac.id}
+                  className="w-full h-full object-cover object-top group-hover:brightness-110 transition-all duration-200"
+                  draggable={false}
+                />
+              </div>
+              <div className="bg-slate-800 group-hover:bg-slate-750 px-4 py-3 transition-colors">
+                <p className="text-sky-400 font-bold text-lg tracking-widest">{ac.id}</p>
+                <p className="text-slate-500 text-xs mt-0.5">{ac.type}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-slate-900 min-h-screen text-slate-100 flex flex-col max-w-2xl mx-auto">
 
@@ -187,7 +230,7 @@ const FlightChecklist: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-slate-300">Reset all?</span>
                   <button
-                    onClick={() => window.location.reload()}
+                    onClick={() => { setSelectedAircraft(null); setConfirmReset(false); setCatIndex(0); setItemIndex(0); setPhase('question'); }}
                     className="text-xs text-rose-400 hover:text-rose-300 font-semibold transition-colors"
                   >
                     Yes

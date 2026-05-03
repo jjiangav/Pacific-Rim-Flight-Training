@@ -2,7 +2,9 @@
 export default {
   content: [
     "./index.html",
-    "./*.{js,jsx,ts,tsx}",
+    "./App.tsx",
+    "./FlightChecklist.tsx",
+    "./main.tsx"
   ],
   theme: {
     extend: {},

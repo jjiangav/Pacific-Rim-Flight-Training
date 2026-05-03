@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { checklists, ChecklistItem } from './checklists';
+import { checklists, ChecklistItem, CockpitZone } from './checklists';
+
+const zoneColors: Record<CockpitZone, string> = {
+  walkaround: 'text-amber-400',
+  cabin: 'text-blue-400',
+  pedestal: 'text-emerald-400',
+  'right-panel': 'text-purple-400',
+  floor: 'text-orange-400',
+  'center-panel': 'text-sky-400',
+  'left-panel': 'text-indigo-400',
+  external: 'text-rose-400',
+  yoke: 'text-cyan-400',
+  'main-panel': 'text-violet-400'
+};
 
 const FlightChecklist: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<string>(Object.keys(checklists)[0]);
@@ -19,6 +32,22 @@ const FlightChecklist: React.FC = () => {
   useEffect(() => {
     localStorage.setItem('checklistProgress', JSON.stringify(completedItems));
   }, [completedItems]);
+
+  // Keyboard listener for "Chair Flying" efficiency
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        const itemsInCategory = checklists[currentCategory];
+        const nextItem = itemsInCategory.find(item => !completedItems.includes(item.id));
+        if (nextItem) {
+          toggleItem(nextItem.id);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [completedItems, currentCategory]);
 
   const toggleItem = (id: string) => {
     setCompletedItems(prev => 
@@ -103,7 +132,9 @@ const FlightChecklist: React.FC = () => {
                   <p className={`font-medium ${completedItems.includes(item.id) ? 'text-slate-500 line-through' : 'text-slate-200'}`}>
                     {item.task}
                   </p>
-                  <span className="text-[10px] uppercase tracking-widest text-slate-500">{item.zone}</span>
+                  <span className={`text-[10px] uppercase tracking-widest font-bold ${zoneColors[item.zone] || 'text-slate-500'}`}>
+                    {item.zone}
+                  </span>
                 </div>
               </div>
               <span className={`font-mono text-sm font-bold ${completedItems.includes(item.id) ? 'text-emerald-500' : 'text-sky-400'}`}>

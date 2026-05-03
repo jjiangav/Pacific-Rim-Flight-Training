@@ -12,42 +12,73 @@ interface Hotspot {
 }
 
 // Per-item hotspots as % of image dimensions.
-// 'real'    → C-GWTE.jpg  (portrait, cockpit photo taken from rear seat looking forward)
-// 'diagram' → C172 SP Cockpit.jpg  (landscape diagram, used when control is obstructed in photo)
-// Items with no entry here are treated as external (cabin/walkaround) — show Mark Complete button.
+// 'real'    → C-GWTE.jpg  (portrait photo, rear-seat perspective looking forward)
+// 'diagram' → C172 SP Cockpit.jpg  (flat diagram, used when control is obstructed in photo)
+// Items with no entry here show a Mark Complete button instead of click-to-identify.
 const HOTSPOTS: Record<string, Hotspot> = {
-  // Pre-Start Check  (pre-1 fire extinguisher & pre-3 seats → cabin, no hotspot needed)
-  'pre-2':   { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel Selector Valve — lower center console
-  'pre-4':   { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers — right panel (obstructed in photo)
-  'pre-5':   { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes — rudder pedal / toe brake assembly
-  // Start Check  (start-5 propeller area → external, no hotspot needed)
-  'start-1': { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture — prominent red knob, upper-left panel
-  'start-2': { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle — left of mixture, upper-left panel
-  'start-3': { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master Switch — left panel switch row
-  'start-4': { image: 'diagram', x: 18, y: 50, w: 5,  h: 7  }, // Beacon (BCN) — too small to identify in photo
-  'start-6': { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Ignition / Magnetos — far-left rotary, lower panel
-  // Before Take-off
-  'to-1':    { image: 'real',    x: 40, y: 38, w: 16, h: 13 }, // Parking Brake — center console
-  'to-2':    { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Control Yoke — lower left
-  'to-3':    { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Flight Instruments — right instrument cluster
-  'to-4':    { image: 'real',    x: 57, y: 46, w: 18, h: 16 }, // Fuel Quantity — left portion of instrument cluster
-  'to-5':    { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture (same as start-1)
-};
-
-const ITEM_LABELS: Record<string, string> = {
-  'pre-4':   'Fuel Selector Valve',
-  'pre-5':   'Circuit Breakers',
-  'pre-6':   'Toe Brakes / Rudder Pedals',
-  'start-1': 'Mixture Control (red knob)',
-  'start-2': 'Throttle',
-  'start-3': 'Master Switch',
-  'start-4': 'Beacon Switch (BCN)',
-  'start-6': 'Ignition / Magnetos',
-  'to-1':    'Parking Brake',
-  'to-2':    'Control Yoke',
-  'to-3':    'Flight Instruments',
-  'to-4':    'Fuel Quantity Gauges',
-  'to-5':    'Mixture Control (red knob)',
+  // Pre-Flight Inspection  (pfi-1/2 cabin, pfi-10–14 walkaround → no hotspot needed)
+  'pfi-3':  { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Control Lock — yoke
+  'pfi-4':  { image: 'real',    x: 42, y: 28, w: 14, h: 12 }, // Trim — center console upper
+  'pfi-5':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Avionics & Electrics — left avionics stack
+  'pfi-6':  { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master / Battery Side
+  'pfi-7':  { image: 'diagram', x: 17, y: 44, w: 5,  h: 9  }, // Flaps — switch on diagram
+  'pfi-8':  { image: 'real',    x: 57, y: 46, w: 18, h: 16 }, // Fuel Gauges — right instrument cluster
+  'pfi-9':  { image: 'diagram', x: 14, y: 50, w: 15, h: 7  }, // All Lights — light switch row on diagram
+  // Pre-Start Check  (psc-2/3 cabin → no hotspot)
+  'psc-1':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Hobbs Time — right instrument cluster
+  'psc-4':  { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers — right panel on diagram
+  'psc-5':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Avionics & Electrics — left avionics stack
+  'psc-6':  { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
+  'psc-7':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — fuel selector (left tank)
+  // Start Check  (sc-8 external → no hotspot, sc-1 carb heat → no hotspot, sc-4 prime → diagram)
+  'sc-2':   { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle / Friction Lock
+  'sc-3':   { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture
+  'sc-4':   { image: 'diagram', x: 70, y: 46, w: 5,  h: 10 }, // Prime — diagram
+  'sc-5':   { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes — rudder pedals
+  'sc-6':   { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master / Battery Side
+  'sc-7':   { image: 'diagram', x: 18, y: 50, w: 5,  h: 7  }, // Beacon Light — BCN switch on diagram
+  'sc-9':   { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Magnetos — far-left rotary
+  'sc-10':  { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle 1000 RPM
+  'sc-11':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Oil Pressure — right cluster
+  'sc-12':  { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Master / Alternator Side
+  'sc-13':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Ammeter — right cluster
+  // Pre-Taxi Check
+  'ptc-1':  { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture
+  'ptc-2':  { image: 'diagram', x: 17, y: 44, w: 5,  h: 9  }, // Flaps
+  'ptc-3':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Radio — left avionics
+  'ptc-4':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Transponder — left avionics
+  'ptc-5':  { image: 'diagram', x: 14, y: 50, w: 15, h: 7  }, // Lights — light switch row
+  'ptc-6':  { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Dead Mag Check — magnetos
+  'ptc-7':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — fuel selector (right tank)
+  'ptc-8':  { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // ATIS — radio/avionics
+  'ptc-9':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments
+  'ptc-10': { image: 'real',    x: 5,  y: 27, w: 22, h: 14 }, // Taxi Clearance / Transponder
+  'ptc-11': { image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
+  'ptc-12': { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes
+  'ptc-13': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments during taxi
+  // Run-Up Check  (ruc-1/2/7 external, ruc-12/14/16/19 carb heat → no hotspot)
+  'ruc-3':  { image: 'real',    x: 30, y: 2,  w: 38, h: 16 }, // Brakes
+  'ruc-4':  { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks
+  'ruc-5':  { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture
+  'ruc-6':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Oil Pressure / Temperature
+  'ruc-8':  { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle 1700 RPM
+  'ruc-9':  { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Oil Pressure green
+  'ruc-10': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Oil Temperature
+  'ruc-11': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Suction gauge
+  'ruc-13': { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture confirm function
+  'ruc-15': { image: 'real',    x: 2,  y: 40, w: 13, h: 16 }, // Magnetos
+  'ruc-17': { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle idle check
+  'ruc-18': { image: 'real',    x: 13, y: 28, w: 14, h: 14 }, // Throttle 1000 RPM
+  // Pre-Takeoff Check  (ptof-10/11 cabin, ptof-13 external → no hotspot, ptof-4 carb heat → no hotspot)
+  'ptof-1': { image: 'diagram', x: 70, y: 46, w: 5,  h: 10 }, // Primer
+  'ptof-2': { image: 'real',    x: 14, y: 40, w: 14, h: 12 }, // Masters / Magnetos
+  'ptof-3': { image: 'diagram', x: 80, y: 11, w: 15, h: 39 }, // Circuit Breakers
+  'ptof-5': { image: 'real',    x: 27, y: 28, w: 11, h: 14 }, // Mixture
+  'ptof-6': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Oil Pressure / Temperature
+  'ptof-7': { image: 'real',    x: 40, y: 50, w: 16, h: 13 }, // Fuel — both tanks
+  'ptof-8': { image: 'diagram', x: 17, y: 44, w: 5,  h: 9  }, // Trim & Flaps
+  'ptof-9': { image: 'real',    x: 57, y: 46, w: 30, h: 23 }, // Instruments
+  'ptof-12':{ image: 'real',    x: 2,  y: 58, w: 28, h: 24 }, // Controls — yoke
 };
 
 const ZONE_LABELS: Record<CockpitZone, string> = {
@@ -77,7 +108,7 @@ const FlightChecklist: React.FC = () => {
   const category = categories[catIndex];
   const items = checklists[category];
   const item = items[itemIndex];
-  const isExternal = EXTERNAL_ZONES.has(item.zone);
+  const showMarkComplete = EXTERNAL_ZONES.has(item.zone) || !HOTSPOTS[item.id];
   const hotspot = HOTSPOTS[item.id];
   const usingDiagram = hotspot?.image === 'diagram';
   const imgSrc = usingDiagram
@@ -106,7 +137,7 @@ const FlightChecklist: React.FC = () => {
   };
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (phase !== 'question' || isExternal || !hotspot) return;
+    if (phase !== 'question' || showMarkComplete || !hotspot) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const px = ((e.clientX - rect.left) / rect.width) * 100;
@@ -128,7 +159,7 @@ const FlightChecklist: React.FC = () => {
         setClickPos(null);
       }, 1800);
     }
-  }, [phase, isExternal, hotspot, advance]);
+  }, [phase, showMarkComplete, hotspot, advance]);
 
   const progressPct = Math.round((itemIndex / items.length) * 100);
 
@@ -211,7 +242,7 @@ const FlightChecklist: React.FC = () => {
                 <span className="text-emerald-400 text-xl font-bold">✓</span>
                 <div>
                   <p className="text-emerald-400 font-bold text-sm">Correct!</p>
-                  <p className="text-slate-300 text-xs">{ITEM_LABELS[item.id] ?? ZONE_LABELS[item.zone]}</p>
+                  <p className="text-slate-300 text-xs">{item.task}</p>
                 </div>
               </div>
             ) : phase === 'incorrect' ? (
@@ -221,12 +252,12 @@ const FlightChecklist: React.FC = () => {
                   <p className="text-rose-400 font-bold text-sm">Not quite — try again</p>
                   <p className="text-slate-400 text-xs">
                     {attempts >= 2
-                      ? `Hint: find the ${ITEM_LABELS[item.id] ?? ZONE_LABELS[item.zone]}`
+                      ? `Hint: find the ${item.task}`
                       : 'Click the correct location on the cockpit image'}
                   </p>
                 </div>
               </div>
-            ) : isExternal ? (
+            ) : showMarkComplete ? (
               <div>
                 <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Performed outside cockpit</p>
                 <p className="text-white font-bold">{item.task}</p>
@@ -243,7 +274,7 @@ const FlightChecklist: React.FC = () => {
 
           {/* Cockpit area */}
           <div className="flex-1 px-4 pt-3 pb-4">
-            {isExternal ? (
+            {showMarkComplete ? (
               <div className="flex flex-col items-center justify-center gap-4 py-16 rounded-xl border border-slate-700 bg-slate-800/50">
                 <p className="text-slate-300 font-medium">{item.task}</p>
                 <p className="text-slate-500 text-sm">{ZONE_LABELS[item.zone]}</p>

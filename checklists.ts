@@ -23,8 +23,6 @@ export interface ChecklistData {
 
 export const checklists: ChecklistData = {
   "Pre-Flight Inspection": [
-    { id: "pfi-1",  task: "Fire Extinguisher",              action: "CHARGED & SECURE",        zone: "cabin"        },
-    { id: "pfi-2",  task: "First Aid Kit",                  action: "LOCATION & SECURE",       zone: "cabin"        },
     { id: "pfi-3",  task: "Control Lock",                   action: "REMOVE",                  zone: "yoke"         },
     { id: "pfi-4",  task: "Trim",                           action: "CONFIRM FUNCTION",        zone: "pedestal"     },
     { id: "pfi-5",  task: "Avionics & Electrics",           action: "OFF (Except Beacon)",     zone: "left-panel"   },

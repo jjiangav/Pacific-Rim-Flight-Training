@@ -104,6 +104,7 @@ const FlightChecklist: React.FC = () => {
   const [showHint, setShowHint] = useState(false);
   const [clickPos, setClickPos] = useState<{ x: number; y: number } | null>(null);
   const [attempts, setAttempts] = useState(0);
+  const [confirmReset, setConfirmReset] = useState(false);
 
   const category = categories[catIndex];
   const items = checklists[category];
@@ -176,12 +177,30 @@ const FlightChecklist: React.FC = () => {
           {phase !== 'done' && (
             <div className="flex items-center gap-3 mt-1">
               <span className="text-xs text-slate-400 tabular-nums">{itemIndex + 1} / {items.length}</span>
-              <button
-                onClick={() => selectCategory(catIndex)}
-                className="text-xs text-rose-400 hover:text-rose-300 font-semibold transition-colors"
-              >
-                Reset
-              </button>
+              {confirmReset ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-300">Reset all?</span>
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="text-xs text-rose-400 hover:text-rose-300 font-semibold transition-colors"
+                  >
+                    Yes
+                  </button>
+                  <button
+                    onClick={() => setConfirmReset(false)}
+                    className="text-xs text-slate-400 hover:text-slate-300 font-semibold transition-colors"
+                  >
+                    No
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setConfirmReset(true)}
+                  className="text-xs text-rose-400 hover:text-rose-300 font-semibold transition-colors"
+                >
+                  Reset
+                </button>
+              )}
             </div>
           )}
         </div>

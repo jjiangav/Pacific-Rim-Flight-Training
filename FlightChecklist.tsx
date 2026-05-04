@@ -220,39 +220,39 @@ const HOTSPOTS_GREI: AircraftHotspots = {
   'ptof-12':{ image: 'real',    x: 2,  y: 18, w: 32, h: 42 },
 };
 
-// ─── C-GUZD (glass cockpit — needs field calibration) ────────────────────────
+// ─── C-GUZD (glass cockpit — calibrated) ─────────────────────────────────────
 const HOTSPOTS_GUZD: AircraftHotspots = {
   'pfi-3':  { image: 'real',    x: 2,  y: 20, w: 32, h: 42 }, // yoke
-  'pfi-4':  { image: 'real',    x: 40, y: 67, w: 5,  h: 12 }, // trim
-  'pfi-5':  { image: 'real',    x: 48, y: 15, w: 28, h: 32 }, // avionics
-  'pfi-6':  { image: 'real',    x: 8,  y: 55, w: 12, h: 12 }, // master
+  'pfi-4':  { image: 'real',    x: 44, y: 56, w: 12, h: 12 }, // trim
+  'pfi-5':  { image: 'real',    x: 36, y: 42, w: 32, h: 22 }, // avionics
+  'pfi-6':  { image: 'real',    x: 18, y: 43, w: 12, h: 12 }, // master
   'pfi-7':  { image: 'real',    x: 60, y: 45, w: 10, h: 10 }, // flaps
-  'pfi-8':  { image: 'real',    x: 55, y: 8,  w: 38, h: 28 }, // fuel (on glass)
-  'pfi-9':  { image: 'diagram', x: 17, y: 55, w: 15, h: 7  },
-  'psc-1':  { image: 'real',    x: 38, y: 62, w: 20, h: 10 }, // hobbs
-  'psc-4':  { image: 'real',    x: 65, y: 40, w: 20, h: 20 }, // circuit breakers
-  'psc-5':  { image: 'real',    x: 48, y: 15, w: 28, h: 32 }, // avionics
+  'pfi-8':  { image: 'real',    x: 13, y: 23, w: 12, h: 12 }, // fuel (on glass)
+  'pfi-9':  { image: 'real',    x: 37, y: 43, w: 12, h: 12 },
+  'psc-1':  { image: 'real',    x: 80, y: 12, w: 12, h: 12 }, // hobbs
+  'psc-4':  { image: 'real',    x: 28, y: 42, w: 12, h: 12 }, // circuit breakers
+  'psc-5':  { image: 'real',    x: 12, y: 10, w: 32, h: 22 }, // avionics
   'psc-6':  { image: 'real',    x: 2,  y: 20, w: 35, h: 42 }, // yoke
-  'psc-7':  { image: 'real',    x: 40, y: 82, w: 16, h: 15 }, // fuel selector
-  'sc-1':   { image: 'real',    x: 26, y: 55, w: 10, h: 12 }, // carb heat
-  'sc-2':   { image: 'real',    x: 38, y: 55, w: 12, h: 12 }, // throttle
-  'sc-3':   { image: 'real',    x: 50, y: 55, w: 12, h: 12 }, // mixture
-  'sc-4':   { image: 'real',    x: 6,  y: 50, w: 10, h: 10 }, // primer
+  'psc-7':  { image: 'real',    x: 48, y: 77, w: 12, h: 12 }, // fuel selector
+  'sc-1':   { image: 'real',    x: 43, y: 42, w: 12, h: 12 }, // carb heat
+  'sc-2':   { image: 'real',    x: 48, y: 43, w: 12, h: 12 }, // throttle
+  'sc-3':   { image: 'real',    x: 54, y: 42, w: 12, h: 12 }, // mixture
+  'sc-4':   { image: 'real',    x: 15, y: 47, w: 12, h: 12 }, // primer
   'sc-5':   { image: 'real',    x: 18, y: 65, w: 42, h: 16 }, // brakes
-  'sc-6':   { image: 'real',    x: 8,  y: 55, w: 12, h: 12 }, // master
-  'sc-7':   { image: 'real',    x: 35, y: 47, w: 5,  h: 7  }, // beacon
-  'sc-9':   { image: 'real',    x: 8,  y: 45, w: 14, h: 16 }, // magnetos
-  'sc-10':  { image: 'real',    x: 38, y: 55, w: 12, h: 12 }, // throttle
-  'sc-11':  { image: 'real',    x: 55, y: 8,  w: 38, h: 28 }, // oil (on glass)
-  'sc-12':  { image: 'real',    x: 8,  y: 55, w: 12, h: 12 }, // master alt
-  'sc-13':  { image: 'real',    x: 55, y: 8,  w: 38, h: 28 }, // ammeter (on glass)
-  'ptc-1':  { image: 'real',    x: 50, y: 55, w: 12, h: 12 }, // mixture
+  'sc-6':   { image: 'real',    x: 17, y: 42, w: 12, h: 12 }, // master
+  'sc-7':   { image: 'real',    x: 38, y: 42, w: 12, h: 12 }, // beacon
+  'sc-9':   { image: 'real',    x: 22, y: 44, w: 12, h: 12 }, // magnetos
+  'sc-10':  { image: 'real',    x: 48, y: 42, w: 12, h: 12 }, // throttle
+  'sc-11':  { image: 'real',    x: 14, y: 24, w: 12, h: 12 }, // oil (on glass)
+  'sc-12':  { image: 'real',    x: 16, y: 42, w: 12, h: 12 }, // master alt
+  'sc-13':  { image: 'real',    x: 36, y: 31, w: 12, h: 12 }, // ammeter (on glass)
+  'ptc-1':  { image: 'real',    x: 51, y: 42, w: 12, h: 12 }, // mixture
   'ptc-2':  { image: 'real',    x: 60, y: 45, w: 10, h: 10 }, // flaps
   'ptc-3':  { image: 'real',    x: 48, y: 15, w: 28, h: 18 }, // radio
-  'ptc-4':  { image: 'real',    x: 48, y: 33, w: 28, h: 14 }, // transponder
-  'ptc-5':  { image: 'diagram', x: 14, y: 53, w: 15, h: 7  },
-  'ptc-6':  { image: 'real',    x: 8,  y: 45, w: 14, h: 16 }, // magnetos
-  'ptc-7':  { image: 'real',    x: 40, y: 82, w: 16, h: 15 }, // fuel selector
+  'ptc-4':  { image: 'real',    x: 52, y: 21, w: 12, h: 12 }, // transponder
+  'ptc-5':  { image: 'real',    x: 37, y: 44, w: 12, h: 12 },
+  'ptc-6':  { image: 'real',    x: 20, y: 43, w: 12, h: 12 }, // magnetos
+  'ptc-7':  { image: 'real',    x: 47, y: 77, w: 12, h: 12 }, // fuel selector
   'ptc-8':  { image: 'real',    x: 48, y: 15, w: 28, h: 18 }, // ATIS/radio
   'ptc-9':  { image: 'real',    x: 10, y: 8,  w: 42, h: 30 }, // glass displays
   'ptc-10': { image: 'real',    x: 48, y: 15, w: 28, h: 18 }, // transponder
@@ -260,28 +260,28 @@ const HOTSPOTS_GUZD: AircraftHotspots = {
   'ptc-12': { image: 'real',    x: 18, y: 65, w: 42, h: 16 }, // brakes
   'ptc-13': { image: 'real',    x: 10, y: 8,  w: 42, h: 30 }, // glass displays
   'ruc-3':  { image: 'real',    x: 18, y: 65, w: 42, h: 16 },
-  'ruc-4':  { image: 'real',    x: 40, y: 82, w: 16, h: 15 },
-  'ruc-5':  { image: 'real',    x: 50, y: 55, w: 12, h: 12 },
-  'ruc-6':  { image: 'real',    x: 55, y: 8,  w: 38, h: 28 },
-  'ruc-8':  { image: 'real',    x: 38, y: 55, w: 12, h: 12 },
-  'ruc-9':  { image: 'real',    x: 55, y: 8,  w: 38, h: 28 },
-  'ruc-10': { image: 'real',    x: 55, y: 8,  w: 38, h: 28 },
-  'ruc-11': { image: 'real',    x: 55, y: 8,  w: 38, h: 28 },
-  'ruc-12': { image: 'real',    x: 26, y: 55, w: 10, h: 12 },
-  'ruc-13': { image: 'real',    x: 50, y: 55, w: 12, h: 12 },
-  'ruc-14': { image: 'real',    x: 26, y: 55, w: 10, h: 12 },
-  'ruc-15': { image: 'real',    x: 8,  y: 45, w: 14, h: 16 },
-  'ruc-16': { image: 'real',    x: 26, y: 55, w: 10, h: 12 },
-  'ruc-17': { image: 'real',    x: 38, y: 55, w: 12, h: 12 },
-  'ruc-18': { image: 'real',    x: 38, y: 55, w: 12, h: 12 },
-  'ruc-19': { image: 'real',    x: 26, y: 55, w: 10, h: 12 },
-  'ptof-1': { image: 'real',    x: 6,  y: 50, w: 10, h: 10 },
-  'ptof-2': { image: 'real',    x: 8,  y: 45, w: 14, h: 16 },
+  'ruc-4':  { image: 'real',    x: 47, y: 77, w: 12, h: 12 },
+  'ruc-5':  { image: 'real',    x: 53, y: 42, w: 12, h: 12 },
+  'ruc-6':  { image: 'real',    x: 13, y: 24, w: 12, h: 12 },
+  'ruc-8':  { image: 'real',    x: 46, y: 38, w: 12, h: 12 },
+  'ruc-9':  { image: 'real',    x: 13, y: 24, w: 12, h: 12 },
+  'ruc-10': { image: 'real',    x: 12, y: 20, w: 12, h: 12 },
+  'ruc-11': { image: 'real',    x: 12, y: 22, w: 12, h: 12 },
+  'ruc-12': { image: 'real',    x: 44, y: 42, w: 12, h: 12 },
+  'ruc-13': { image: 'real',    x: 20, y: 45, w: 12, h: 12 },
+  'ruc-14': { image: 'real',    x: 42, y: 42, w: 12, h: 12 },
+  'ruc-15': { image: 'real',    x: 23, y: 44, w: 12, h: 12 },
+  'ruc-16': { image: 'real',    x: 41, y: 40, w: 12, h: 12 },
+  'ruc-17': { image: 'real',    x: 47, y: 40, w: 12, h: 12 },
+  'ruc-18': { image: 'real',    x: 48, y: 41, w: 12, h: 12 },
+  'ruc-19': { image: 'real',    x: 44, y: 42, w: 12, h: 12 },
+  'ptof-1': { image: 'real',    x: 16, y: 47, w: 12, h: 12 },
+  'ptof-2': { image: 'real',    x: 23, y: 45, w: 12, h: 12 },
   'ptof-3': { image: 'diagram', x: 20, y: 42, w: 20, h: 10 },
-  'ptof-4': { image: 'real',    x: 26, y: 55, w: 10, h: 12 },
-  'ptof-5': { image: 'real',    x: 50, y: 55, w: 12, h: 12 },
-  'ptof-6': { image: 'real',    x: 55, y: 8,  w: 38, h: 28 },
-  'ptof-7': { image: 'real',    x: 40, y: 82, w: 16, h: 15 },
+  'ptof-4': { image: 'real',    x: 44, y: 43, w: 12, h: 12 },
+  'ptof-5': { image: 'real',    x: 53, y: 41, w: 12, h: 12 },
+  'ptof-6': { image: 'real',    x: 13, y: 24, w: 12, h: 12 },
+  'ptof-7': { image: 'real',    x: 47, y: 77, w: 12, h: 12 },
   'ptof-8': { image: 'real',    x: 60, y: 45, w: 10, h: 10 },
   'ptof-9': { image: 'real',    x: 10, y: 8,  w: 42, h: 30 },
   'ptof-12':{ image: 'real',    x: 2,  y: 20, w: 32, h: 42 },

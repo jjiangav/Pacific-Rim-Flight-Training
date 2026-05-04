@@ -327,6 +327,8 @@ const FlightChecklist: React.FC = () => {
   const [attempts, setAttempts] = useState(0);
   const [confirmReset, setConfirmReset] = useState(false);
   const [calibratePos, setCalibratePos] = useState<{ x: number; y: number } | null>(null);
+  const [calibrateLog, setCalibrateLog] = useState<Record<string, { x: number; y: number }>>({});
+  const [showCalibrateSummary, setShowCalibrateSummary] = useState(false);
 
   const category = categories[catIndex];
   const items = checklists[category];
@@ -365,7 +367,8 @@ const FlightChecklist: React.FC = () => {
     const px = Math.round(((e.clientX - rect.left) / rect.width) * 100);
     const py = Math.round(((e.clientY - rect.top) / rect.height) * 100);
     setCalibratePos({ x: px, y: py });
-  }, []);
+    setCalibrateLog(prev => ({ ...prev, [item.id]: { x: px, y: py } }));
+  }, [item.id]);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (phase !== 'question' || showMarkComplete || !hotspot) return;
@@ -495,15 +498,64 @@ const FlightChecklist: React.FC = () => {
 
       {/* Done screen */}
       {phase === 'done' ? (
+        calibrating && showCalibrateSummary ? (
+          /* Calibration summary screen */
+          <div className="flex-1 flex flex-col p-4 gap-3 overflow-y-auto">
+            <div className="text-center">
+              <h2 className="text-lg font-bold text-yellow-400">Calibration Log — {selectedAircraft}</h2>
+              <p className="text-slate-500 text-xs mt-0.5">{Object.keys(calibrateLog).length} items tapped — select all and copy</p>
+            </div>
+            <textarea
+              readOnly
+              className="flex-1 min-h-[60vh] rounded-xl border border-yellow-500/30 bg-slate-800 text-yellow-200 font-mono text-[11px] p-3 resize-none focus:outline-none focus:ring-1 focus:ring-yellow-500 select-all"
+              value={Object.entries(calibrateLog)
+                .map(([id, pos]) => `  '${id}': { image: 'real', x: ${pos.x}, y: ${pos.y}, w: 12, h: 12 },`)
+                .join('\n')}
+              onClick={e => (e.target as HTMLTextAreaElement).select()}
+            />
+            <div className="flex gap-3">
+              {catIndex < categories.length - 1 && (
+                <button
+                  onClick={() => { setShowCalibrateSummary(false); selectCategory(catIndex + 1); }}
+                  className="flex-1 px-4 py-2.5 bg-yellow-600 hover:bg-yellow-500 rounded-lg font-bold text-sm text-slate-900 transition-colors"
+                >
+                  Next: {categories[catIndex + 1]}
+                </button>
+              )}
+              <button
+                onClick={() => setShowCalibrateSummary(false)}
+                className="px-4 py-2.5 bg-slate-700 hover:bg-slate-600 rounded-lg font-bold text-sm transition-colors"
+              >
+                Back
+              </button>
+            </div>
+          </div>
+        ) : (
         <div className="flex-1 flex flex-col items-center justify-center gap-6 p-8 text-center">
-          <div className="w-16 h-16 rounded-full bg-emerald-900/50 border-2 border-emerald-500 flex items-center justify-center text-2xl font-bold text-emerald-400">
-            ✓
+          <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center text-2xl font-bold ${
+            calibrating
+              ? 'bg-yellow-900/50 border-yellow-500 text-yellow-400'
+              : 'bg-emerald-900/50 border-emerald-500 text-emerald-400'
+          }`}>
+            {calibrating ? '📋' : '✓'}
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-emerald-400">Checklist Complete</h2>
-            <p className="text-slate-400 mt-1 text-sm">{category} — all {items.length} items verified</p>
+            <h2 className={`text-2xl font-bold ${calibrating ? 'text-yellow-400' : 'text-emerald-400'}`}>
+              {calibrating ? 'Section Done' : 'Checklist Complete'}
+            </h2>
+            <p className="text-slate-400 mt-1 text-sm">
+              {category} — {calibrating ? `${Object.keys(calibrateLog).length} coordinates logged` : `all ${items.length} items verified`}
+            </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 w-full max-w-xs">
+            {calibrating && (
+              <button
+                onClick={() => setShowCalibrateSummary(true)}
+                className="px-5 py-2.5 bg-yellow-500 hover:bg-yellow-400 rounded-lg font-bold text-sm text-slate-900 transition-colors"
+              >
+                View all coordinates
+              </button>
+            )}
             {catIndex < categories.length - 1 && (
               <button
                 onClick={() => selectCategory(catIndex + 1)}
@@ -516,10 +568,11 @@ const FlightChecklist: React.FC = () => {
               onClick={() => selectCategory(catIndex)}
               className="px-5 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg font-bold text-sm transition-colors"
             >
-              Retry
+              {calibrating ? 'Redo section' : 'Retry'}
             </button>
           </div>
         </div>
+        )
       ) : (
         <>
           {/* Instruction card */}
@@ -636,13 +689,20 @@ const FlightChecklist: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Calibration: tap crosshair */}
+                  {/* Calibration: tap box (12×12 default size) */}
                   {calibrating && calibratePos && (
                     <div
-                      className="absolute w-4 h-4 pointer-events-none -translate-x-1/2 -translate-y-1/2"
-                      style={{ left: `${calibratePos.x}%`, top: `${calibratePos.y}%` }}
+                      className="absolute pointer-events-none rounded border-2 border-rose-400 bg-rose-400/20"
+                      style={{
+                        left:   `${calibratePos.x}%`,
+                        top:    `${calibratePos.y}%`,
+                        width:  '12%',
+                        height: '12%',
+                      }}
                     >
-                      <div className="absolute inset-0 rounded-full border-2 border-rose-400 bg-rose-400/30" />
+                      <span className="absolute top-0.5 left-0.5 text-[8px] font-bold text-rose-300 bg-slate-900/80 px-0.5 rounded leading-none whitespace-nowrap">
+                        new
+                      </span>
                     </div>
                   )}
 
@@ -656,13 +716,22 @@ const FlightChecklist: React.FC = () => {
                 </div>
 
                 {/* Calibration readout */}
-                {calibrating && calibratePos && (
-                  <div className="mt-2 rounded-lg border border-yellow-500/40 bg-yellow-950/30 p-3 text-xs font-mono text-yellow-200 space-y-1">
-                    <p className="text-yellow-400 font-bold">{item.id} — {item.task}</p>
-                    <p>tap: x={calibratePos.x}, y={calibratePos.y}</p>
-                    <p className="text-slate-400 text-[10px] break-all select-all">
-                      {`'${item.id}': { image: 'real', x: ${calibratePos.x}, y: ${calibratePos.y}, w: 12, h: 12 },`}
-                    </p>
+                {calibrating && (
+                  <div className="mt-2 rounded-lg border border-yellow-500/40 bg-yellow-950/30 p-3 text-xs font-mono space-y-1">
+                    <div className="flex items-center justify-between">
+                      <p className="text-yellow-400 font-bold">{item.id} — {item.task}</p>
+                      <span className="text-[10px] text-slate-500">{Object.keys(calibrateLog).length} logged</span>
+                    </div>
+                    {calibratePos ? (
+                      <>
+                        <p className="text-yellow-200">tap: x={calibratePos.x}, y={calibratePos.y}</p>
+                        <p className="text-slate-400 text-[10px] break-all select-all">
+                          {`'${item.id}': { image: 'real', x: ${calibratePos.x}, y: ${calibratePos.y}, w: 12, h: 12 },`}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-slate-500 italic">Tap the control in the image above</p>
+                    )}
                   </div>
                 )}
 
@@ -681,7 +750,7 @@ const FlightChecklist: React.FC = () => {
 
                 {calibrating && (
                   <button
-                    onClick={advance}
+                    onClick={() => { setCalibratePos(null); advance(); }}
                     className="mt-2 w-full py-2 rounded-lg text-xs font-medium border border-slate-600 bg-slate-800/50 text-slate-400 hover:text-slate-200 transition-colors"
                   >
                     Next item →

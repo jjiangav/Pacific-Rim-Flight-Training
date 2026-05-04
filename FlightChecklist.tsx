@@ -86,9 +86,9 @@ const HOTSPOTS_GWTE: AircraftHotspots = {
 
 // ─── C-FBZQ (dark cockpit, head-on view — calibrated pfi) ────────────────────
 const HOTSPOTS_FBZQ: AircraftHotspots = {
-  'pfi-3':  { image: 'real',    x: 13, y: 47, w: 12, h: 12 }, // yoke
+  'pfi-3':  { image: 'real',    x: 13, y: 47, w: 24, h: 22 }, // yoke
   'pfi-4':  { image: 'real',    x: 42, y: 54, w: 12, h: 12 }, // trim
-  'pfi-5':  { image: 'real',    x: 31, y: 40, w: 12, h: 12 }, // avionics stack
+  'pfi-5':  { image: 'real',    x: 31, y: 40, w: 24, h: 24 }, // avionics stack
   'pfi-6':  { image: 'real',    x: 17, y: 42, w: 12, h: 12 }, // master
   'pfi-7':  { image: 'real',    x: 55, y: 42, w: 12, h: 12 }, // flaps
   'pfi-8':  { image: 'real',    x: 66, y: 8,  w: 12, h: 12 }, // fuel gauges
@@ -96,13 +96,13 @@ const HOTSPOTS_FBZQ: AircraftHotspots = {
   'psc-1':  { image: 'real',    x: 45, y: 62, w: 12, h: 12 }, // hobbs
   'psc-4':  { image: 'real',    x: 68, y: 40, w: 20, h: 20 }, // circuit breakers
   'psc-5':  { image: 'real',    x: 17, y: 42, w: 12, h: 12 }, // avionics
-  'psc-6':  { image: 'real',    x: 5,  y: 10, w: 12, h: 12 }, // yoke
+  'psc-6':  { image: 'real',    x: 5,  y: 10, w: 30, h: 30 }, // yoke
   'psc-7':  { image: 'real',    x: 44, y: 75, w: 12, h: 12 }, // fuel selector
   'sc-1':   { image: 'real',    x: 40, y: 41, w: 12, h: 12 }, // carb heat
   'sc-2':   { image: 'real',    x: 46, y: 42, w: 12, h: 12 }, // throttle
   'sc-3':   { image: 'real',    x: 51, y: 39, w: 12, h: 12 }, // mixture
   'sc-4':   { image: 'real',    x: 12, y: 42, w: 12, h: 12 }, // primer
-  'sc-5':   { image: 'real',    x: 33, y: 60, w: 12, h: 12 }, // brakes
+  'sc-5':   { image: 'real',    x: 33, y: 60, w: 20, h: 20 }, // brakes
   'sc-6':   { image: 'real',    x: 18, y: 40, w: 12, h: 12 }, // master
   'sc-7':   { image: 'real',    x: 37, y: 44, w: 12, h: 12 }, // beacon
   'sc-9':   { image: 'real',    x: 20, y: 42, w: 12, h: 12 }, // magnetos
@@ -118,9 +118,9 @@ const HOTSPOTS_FBZQ: AircraftHotspots = {
   'ptc-6':  { image: 'real',    x: 8,  y: 48, w: 14, h: 16 }, // magnetos
   'ptc-7':  { image: 'real',    x: 40, y: 82, w: 16, h: 15 }, // fuel selector
   'ptc-8':  { image: 'real',    x: 42, y: 20, w: 28, h: 16 }, // ATIS/radio
-  'ptc-9':  { image: 'real',    x: 5,  y: 15, w: 35, h: 28 }, // instruments
+  'ptc-9':  { image: 'real',    x: 5,  y: 10, w: 35, h: 28 }, // instruments
   'ptc-10': { image: 'real',    x: 42, y: 20, w: 28, h: 16 }, // transponder
-  'ptc-11': { image: 'real',    x: 2,  y: 55, w: 28, h: 35 }, // yoke
+  'ptc-11': { image: 'real',    x: 2,  y: 15, w: 28, h: 35 }, // yoke
   'ptc-12': { image: 'real',    x: 20, y: 70, w: 42, h: 16 }, // brakes
   'ptc-13': { image: 'real',    x: 5,  y: 15, w: 35, h: 28 }, // instruments
   'ruc-3':  { image: 'real',    x: 20, y: 70, w: 42, h: 16 },

@@ -84,32 +84,32 @@ const HOTSPOTS_GWTE: AircraftHotspots = {
   'ptof-12':{ image: 'real',    x: 2,  y: 20, w: 28, h: 24 },
 };
 
-// ─── C-FBZQ (dark cockpit, head-on view — needs field calibration) ───────────
+// ─── C-FBZQ (dark cockpit, head-on view — calibrated pfi) ────────────────────
 const HOTSPOTS_FBZQ: AircraftHotspots = {
-  'pfi-3':  { image: 'real',    x: 2,  y: 55, w: 28, h: 35 }, // yoke
-  'pfi-4':  { image: 'real',    x: 42, y: 72, w: 5,  h: 12 }, // trim
-  'pfi-5':  { image: 'real',    x: 42, y: 20, w: 28, h: 30 }, // avionics stack
-  'pfi-6':  { image: 'real',    x: 8,  y: 60, w: 12, h: 12 }, // master
-  'pfi-7':  { image: 'real',    x: 62, y: 52, w: 10, h: 10 }, // flaps
-  'pfi-8':  { image: 'real',    x: 68, y: 15, w: 28, h: 18 }, // fuel gauges
-  'pfi-9':  { image: 'diagram', x: 17, y: 55, w: 15, h: 7  },
-  'psc-1':  { image: 'real',    x: 38, y: 68, w: 20, h: 10 }, // hobbs
+  'pfi-3':  { image: 'real',    x: 13, y: 47, w: 12, h: 12 }, // yoke
+  'pfi-4':  { image: 'real',    x: 42, y: 54, w: 12, h: 12 }, // trim
+  'pfi-5':  { image: 'real',    x: 31, y: 40, w: 12, h: 12 }, // avionics stack
+  'pfi-6':  { image: 'real',    x: 17, y: 42, w: 12, h: 12 }, // master
+  'pfi-7':  { image: 'real',    x: 55, y: 42, w: 12, h: 12 }, // flaps
+  'pfi-8':  { image: 'real',    x: 66, y: 8,  w: 12, h: 12 }, // fuel gauges
+  'pfi-9':  { image: 'real',    x: 34, y: 42, w: 12, h: 12 },
+  'psc-1':  { image: 'real',    x: 45, y: 62, w: 12, h: 12 }, // hobbs
   'psc-4':  { image: 'real',    x: 68, y: 40, w: 20, h: 20 }, // circuit breakers
-  'psc-5':  { image: 'real',    x: 42, y: 20, w: 28, h: 30 }, // avionics
-  'psc-6':  { image: 'real',    x: 2,  y: 55, w: 30, h: 35 }, // yoke
-  'psc-7':  { image: 'real',    x: 40, y: 82, w: 16, h: 15 }, // fuel selector
-  'sc-1':   { image: 'real',    x: 28, y: 62, w: 10, h: 12 }, // carb heat
-  'sc-2':   { image: 'real',    x: 40, y: 62, w: 12, h: 12 }, // throttle
-  'sc-3':   { image: 'real',    x: 52, y: 62, w: 12, h: 12 }, // mixture
-  'sc-4':   { image: 'real',    x: 6,  y: 52, w: 10, h: 10 }, // primer
-  'sc-5':   { image: 'real',    x: 20, y: 70, w: 42, h: 16 }, // brakes
-  'sc-6':   { image: 'real',    x: 8,  y: 60, w: 12, h: 12 }, // master
-  'sc-7':   { image: 'real',    x: 35, y: 55, w: 5,  h: 7  }, // beacon
-  'sc-9':   { image: 'real',    x: 8,  y: 48, w: 14, h: 16 }, // magnetos
-  'sc-10':  { image: 'real',    x: 40, y: 62, w: 12, h: 12 }, // throttle
-  'sc-11':  { image: 'real',    x: 68, y: 33, w: 28, h: 18 }, // oil pressure
-  'sc-12':  { image: 'real',    x: 8,  y: 60, w: 12, h: 12 }, // master alt
-  'sc-13':  { image: 'real',    x: 68, y: 15, w: 28, h: 18 }, // ammeter
+  'psc-5':  { image: 'real',    x: 17, y: 42, w: 12, h: 12 }, // avionics
+  'psc-6':  { image: 'real',    x: 5,  y: 10, w: 12, h: 12 }, // yoke
+  'psc-7':  { image: 'real',    x: 44, y: 75, w: 12, h: 12 }, // fuel selector
+  'sc-1':   { image: 'real',    x: 40, y: 41, w: 12, h: 12 }, // carb heat
+  'sc-2':   { image: 'real',    x: 46, y: 42, w: 12, h: 12 }, // throttle
+  'sc-3':   { image: 'real',    x: 51, y: 39, w: 12, h: 12 }, // mixture
+  'sc-4':   { image: 'real',    x: 12, y: 42, w: 12, h: 12 }, // primer
+  'sc-5':   { image: 'real',    x: 33, y: 60, w: 12, h: 12 }, // brakes
+  'sc-6':   { image: 'real',    x: 18, y: 40, w: 12, h: 12 }, // master
+  'sc-7':   { image: 'real',    x: 37, y: 44, w: 12, h: 12 }, // beacon
+  'sc-9':   { image: 'real',    x: 20, y: 42, w: 12, h: 12 }, // magnetos
+  'sc-10':  { image: 'real',    x: 45, y: 40, w: 12, h: 12 }, // throttle
+  'sc-11':  { image: 'real',    x: 65, y: 10, w: 12, h: 12 }, // oil pressure
+  'sc-12':  { image: 'real',    x: 16, y: 42, w: 12, h: 12 }, // master alt
+  'sc-13':  { image: 'real',    x: 75, y: 12, w: 12, h: 12 }, // ammeter
   'ptc-1':  { image: 'real',    x: 52, y: 62, w: 12, h: 12 }, // mixture
   'ptc-2':  { image: 'real',    x: 62, y: 52, w: 10, h: 10 }, // flaps
   'ptc-3':  { image: 'real',    x: 42, y: 20, w: 28, h: 16 }, // radio

@@ -153,13 +153,14 @@ const HOTSPOTS_FBZQ: AircraftHotspots = {
 
 // ─── C-GREI (tan, traditional instruments — needs field calibration) ──────────
 const HOTSPOTS_GREI: AircraftHotspots = {
-  'pfi-3':  { image: 'real',    x: 2,  y: 18, w: 32, h: 42 }, // yoke
-  'pfi-4':  { image: 'real',    x: 42, y: 65, w: 5,  h: 12 }, // trim
-  'pfi-5':  { image: 'real',    x: 45, y: 15, w: 28, h: 30 }, // avionics
-  'pfi-6':  { image: 'real',    x: 7,  y: 53, w: 12, h: 12 }, // master
-  'pfi-7':  { image: 'real',    x: 58, y: 43, w: 10, h: 10 }, // flaps
-  'pfi-8':  { image: 'real',    x: 65, y: 10, w: 30, h: 18 }, // fuel gauges
-  'pfi-9':  { image: 'diagram', x: 17, y: 55, w: 15, h: 7  },
+  'pfi-3':  { image: 'real',    x: 16, y: 52, w: 12, h: 12 },
+  'pfi-4':  { image: 'real',    x: 47, y: 62, w: 12, h: 12 },
+  'pfi-5':  { image: 'real',    x: 41, y: 48, w: 12, h: 12 },
+  'pfi-6':  { image: 'real',    x: 16, y: 52, w: 12, h: 12 },
+  'pfi-7':  { image: 'real',    x: 58, y: 46, w: 12, h: 12 },
+  'pfi-8':  { image: 'real',    x: 14, y: 31, w: 12, h: 12 },
+  'pfi-9':  { image: 'real',    x: 41, y: 50, w: 12, h: 12 },
+  'pfi-10': { image: 'real',    x: 17, y: 51, w: 12, h: 12 },
   'psc-1':  { image: 'real',    x: 40, y: 58, w: 20, h: 10 }, // hobbs
   'psc-4':  { image: 'real',    x: 65, y: 38, w: 20, h: 20 }, // circuit breakers
   'psc-5':  { image: 'real',    x: 45, y: 15, w: 28, h: 30 }, // avionics

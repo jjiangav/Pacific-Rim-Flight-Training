@@ -315,6 +315,8 @@ const AIRCRAFT = [
 ];
 
 const FlightChecklist: React.FC = () => {
+  const calibrating = new URLSearchParams(window.location.search).get('calibrate') === '1';
+
   const categories = Object.keys(checklists);
   const [selectedAircraft, setSelectedAircraft] = useState<string | null>(null);
   const [catIndex, setCatIndex] = useState(0);
@@ -324,6 +326,7 @@ const FlightChecklist: React.FC = () => {
   const [clickPos, setClickPos] = useState<{ x: number; y: number } | null>(null);
   const [attempts, setAttempts] = useState(0);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [calibratePos, setCalibratePos] = useState<{ x: number; y: number } | null>(null);
 
   const category = categories[catIndex];
   const items = checklists[category];
@@ -356,6 +359,13 @@ const FlightChecklist: React.FC = () => {
     setAttempts(0);
     setShowHint(false);
   };
+
+  const handleCalibrateClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+    const py = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+    setCalibratePos({ x: px, y: py });
+  }, []);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (phase !== 'question' || showMarkComplete || !hotspot) return;
@@ -421,6 +431,13 @@ const FlightChecklist: React.FC = () => {
 
   return (
     <div className="bg-slate-900 min-h-screen text-slate-100 flex flex-col max-w-2xl mx-auto">
+
+      {/* Calibration banner */}
+      {calibrating && (
+        <div className="bg-yellow-500 text-slate-900 text-center text-xs font-bold py-1.5 tracking-widest uppercase">
+          Calibration Mode — tap any control to read its coordinates
+        </div>
+      )}
 
       {/* Header */}
       <header className="px-4 pt-4 pb-3 border-b border-slate-700">
@@ -548,7 +565,7 @@ const FlightChecklist: React.FC = () => {
 
           {/* Cockpit area */}
           <div className="flex-1 px-4 pt-3 pb-4">
-            {showMarkComplete ? (
+            {showMarkComplete && !calibrating ? (
               <div className="flex flex-col items-center justify-center gap-4 py-16 rounded-xl border border-slate-700 bg-slate-800/50">
                 <p className="text-slate-300 font-medium">{item.task}</p>
                 <p className="text-slate-500 text-sm">{ZONE_LABELS[item.zone]}</p>
@@ -561,7 +578,7 @@ const FlightChecklist: React.FC = () => {
               </div>
             ) : (
               <>
-                {usingDiagram && (
+                {usingDiagram && !calibrating && (
                   <p className="text-amber-400/70 text-[11px] mb-1.5 text-center tracking-wide">
                     Control obstructed in aircraft photo — showing diagram
                   </p>
@@ -569,18 +586,18 @@ const FlightChecklist: React.FC = () => {
 
                 <div
                   className="relative select-none cursor-crosshair rounded-xl overflow-hidden border border-slate-700"
-                  onClick={handleClick}
+                  onClick={calibrating ? handleCalibrateClick : handleClick}
                 >
                   <img
                     key={imgSrc}
-                    src={imgSrc}
-                    alt={usingDiagram ? 'C172 Cockpit Diagram' : 'C-GWTE Cockpit'}
+                    src={`${import.meta.env.BASE_URL}${selectedAircraft}.jpg`}
+                    alt={`${selectedAircraft} Cockpit`}
                     className="w-full block"
                     draggable={false}
                   />
 
                   {/* Hotspot overlay — hint or correct flash */}
-                  {hotspot && (showHint || phase === 'correct') && (
+                  {hotspot && (showHint || phase === 'correct') && !calibrating && (
                     <div
                       className={`absolute pointer-events-none rounded border-2 transition-all duration-300 ${
                         phase === 'correct'
@@ -602,8 +619,35 @@ const FlightChecklist: React.FC = () => {
                     </div>
                   )}
 
+                  {/* Calibration: existing hotspot reference box */}
+                  {calibrating && hotspot && (
+                    <div
+                      className="absolute pointer-events-none rounded border-2 border-yellow-400 bg-yellow-400/10"
+                      style={{
+                        left:   `${hotspot.x}%`,
+                        top:    `${hotspot.y}%`,
+                        width:  `${hotspot.w}%`,
+                        height: `${hotspot.h}%`,
+                      }}
+                    >
+                      <span className="absolute top-0.5 left-0.5 text-[8px] font-bold text-yellow-300 bg-slate-900/80 px-0.5 rounded leading-none whitespace-nowrap">
+                        current
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Calibration: tap crosshair */}
+                  {calibrating && calibratePos && (
+                    <div
+                      className="absolute w-4 h-4 pointer-events-none -translate-x-1/2 -translate-y-1/2"
+                      style={{ left: `${calibratePos.x}%`, top: `${calibratePos.y}%` }}
+                    >
+                      <div className="absolute inset-0 rounded-full border-2 border-rose-400 bg-rose-400/30" />
+                    </div>
+                  )}
+
                   {/* Wrong-click ripple */}
-                  {clickPos && phase === 'incorrect' && (
+                  {clickPos && phase === 'incorrect' && !calibrating && (
                     <div
                       className="absolute w-8 h-8 rounded-full border-2 border-rose-400 bg-rose-400/20 pointer-events-none -translate-x-1/2 -translate-y-1/2 animate-ping"
                       style={{ left: `${clickPos.x}%`, top: `${clickPos.y}%` }}
@@ -611,16 +655,38 @@ const FlightChecklist: React.FC = () => {
                   )}
                 </div>
 
-                <button
-                  onClick={() => setShowHint(h => !h)}
-                  className={`mt-2 w-full py-2 rounded-lg text-xs font-medium border transition-colors ${
-                    showHint
-                      ? 'border-sky-500/60 bg-sky-950/40 text-sky-400'
-                      : 'border-slate-700 bg-slate-800/50 text-slate-500 hover:text-slate-300'
-                  }`}
-                >
-                  {showHint ? 'Hide Hint' : 'Show Hint'}
-                </button>
+                {/* Calibration readout */}
+                {calibrating && calibratePos && (
+                  <div className="mt-2 rounded-lg border border-yellow-500/40 bg-yellow-950/30 p-3 text-xs font-mono text-yellow-200 space-y-1">
+                    <p className="text-yellow-400 font-bold">{item.id} — {item.task}</p>
+                    <p>tap: x={calibratePos.x}, y={calibratePos.y}</p>
+                    <p className="text-slate-400 text-[10px] break-all select-all">
+                      {`'${item.id}': { image: 'real', x: ${calibratePos.x}, y: ${calibratePos.y}, w: 12, h: 12 },`}
+                    </p>
+                  </div>
+                )}
+
+                {!calibrating && (
+                  <button
+                    onClick={() => setShowHint(h => !h)}
+                    className={`mt-2 w-full py-2 rounded-lg text-xs font-medium border transition-colors ${
+                      showHint
+                        ? 'border-sky-500/60 bg-sky-950/40 text-sky-400'
+                        : 'border-slate-700 bg-slate-800/50 text-slate-500 hover:text-slate-300'
+                    }`}
+                  >
+                    {showHint ? 'Hide Hint' : 'Show Hint'}
+                  </button>
+                )}
+
+                {calibrating && (
+                  <button
+                    onClick={advance}
+                    className="mt-2 w-full py-2 rounded-lg text-xs font-medium border border-slate-600 bg-slate-800/50 text-slate-400 hover:text-slate-200 transition-colors"
+                  >
+                    Next item →
+                  </button>
+                )}
               </>
             )}
           </div>

@@ -145,7 +145,7 @@ const HOTSPOTS_FBZQ: AircraftHotspots = {
   'ptof-4': { image: 'real',    x: 41, y: 41, w: 12, h: 12 },
   'ptof-5': { image: 'real',    x: 51, y: 41, w: 12, h: 12 },
   'ptof-6': { image: 'real',    x: 65, y: 10, w: 12, h: 12 },
-  'ptof-7': { image: 'real',    x: 64, y: 9,  w: 12, h: 12 },
+  'ptof-7': { image: 'real',    x: 44, y: 75, w: 12, h: 12 },
   'ptof-8': { image: 'real',    x: 54, y: 40, w: 12, h: 12 },
   'ptof-9': { image: 'real',    x: 5,  y: 15, w: 35, h: 28 },
   'ptof-12':{ image: 'real',    x: 2,  y: 4,  w: 30, h: 32 },
@@ -163,8 +163,8 @@ const HOTSPOTS_GREI: AircraftHotspots = {
   'pfi-10': { image: 'real',    x: 17, y: 51, w: 12, h: 12 },
   'psc-1':  { image: 'real',    x: 83, y: 20, w: 12, h: 12 }, // hobbs
   'psc-4':  { image: 'real',    x: 31, y: 49, w: 12, h: 12 }, // circuit breakers
-  'psc-5':  { image: 'real',    x: 18, y: 51, w: 12, h: 12 }, // avionics
-  'psc-6':  { image: 'real',    x: 11, y: 33, w: 12, h: 12 }, // yoke
+  'psc-5':  { image: 'real',    x: 18, y: 51, w: 42, h: 12 }, // avionics
+  'psc-6':  { image: 'real',    x: 11, y: 33, w: 32, h: 32 }, // yoke
   'psc-7':  { image: 'real',    x: 50, y: 85, w: 12, h: 12 }, // fuel selector
   'sc-1':   { image: 'real',    x: 45, y: 47, w: 12, h: 12 }, // carb heat
   'sc-2':   { image: 'real',    x: 49, y: 48, w: 12, h: 12 }, // throttle
